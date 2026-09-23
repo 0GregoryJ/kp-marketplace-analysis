@@ -1,0 +1,971 @@
+[0m00:32:39.360579 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108816900>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a0aa850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a0aaad0>]}
+
+
+============================== 00:32:39.363960 | 65892e73-0b40-4d41-9dac-45003c58933e ==============================
+[0m00:32:39.363960 [info ] [MainThread]: Running with dbt=1.12.5
+[0m00:32:39.364280 [debug] [MainThread]: running dbt with arguments {'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'quiet': 'False', 'indirect_selection': 'eager', 'write_json': 'True', 'warn_error': 'None', 'fail_fast': 'False', 'static_parser': 'True', 'use_colors': 'True', 'target_path': 'None', 'no_print': 'None', 'debug': 'False', 'send_anonymous_usage_stats': 'True', 'log_format': 'default', 'log_cache_events': 'False', 'profiles_dir': '/Users/gregoryjoshua/.dbt', 'log_path': '/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/logs', 'empty': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'introspect': 'True', 'invocation_command': 'dbt run', 'hints_enabled': 'True', 'version_check': 'True', 'printer_width': '80', 'maximum_seed_size_mib': '1', 'use_experimental_parser': 'False'}
+[0m00:32:39.597276 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '65892e73-0b40-4d41-9dac-45003c58933e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a15a520>]}
+[0m00:32:39.629381 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '65892e73-0b40-4d41-9dac-45003c58933e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109265ae0>]}
+[0m00:32:39.631012 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m00:32:39.721304 [debug] [MainThread]: checksum: 35b5aaaa2a719e044217e44f0450b7b439bc1be839400f70b649ea78fb4ac325, vars: {}, profile: kp_analysis, target: dev, version: 1.12.5
+[0m00:32:39.721837 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m00:32:39.722046 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '65892e73-0b40-4d41-9dac-45003c58933e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a206150>]}
+[0m00:32:40.263663 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '65892e73-0b40-4d41-9dac-45003c58933e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a230410>]}
+[0m00:32:40.298886 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:32:40.300803 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:32:40.313245 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:32:40.319934 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '65892e73-0b40-4d41-9dac-45003c58933e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a95cc90>]}
+[0m00:32:40.320215 [info ] [MainThread]: Found 3 models, 500 macros
+[0m00:32:40.320408 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '65892e73-0b40-4d41-9dac-45003c58933e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a61b450>]}
+[0m00:32:40.321305 [info ] [MainThread]: 
+[0m00:32:40.321481 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m00:32:40.321617 [info ] [MainThread]: 
+[0m00:32:40.321858 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m00:32:40.322256 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_analysis'
+[0m00:32:40.354741 [debug] [ThreadPool]: Using duckdb connection "list_analysis"
+[0m00:32:40.354955 [debug] [ThreadPool]: On list_analysis: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"analysis"'
+    
+  
+  
+[0m00:32:40.355110 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m00:32:40.365603 [debug] [ThreadPool]: DuckDB adapter: duckdb error: IO Error: Could not set lock on file "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/data/processed/analysis.duckdb": Conflicting lock is held in /opt/homebrew/Cellar/duckdb/1.5.5/bin/duckdb (PID 7613) by user gregoryjoshua. See also https://duckdb.org/docs/stable/connect/concurrency
+[0m00:32:40.365812 [debug] [ThreadPool]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"analysis"'
+    
+  
+  
+[0m00:32:40.365953 [debug] [ThreadPool]: DuckDB adapter: Rolling back transaction.
+[0m00:32:40.366081 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m00:32:40.368235 [debug] [ThreadPool]: DuckDB adapter: duckdb error: IO Error: Could not set lock on file "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/data/processed/analysis.duckdb": Conflicting lock is held in /opt/homebrew/Cellar/duckdb/1.5.5/bin/duckdb (PID 7613) by user gregoryjoshua. See also https://duckdb.org/docs/stable/connect/concurrency
+[0m00:32:40.368390 [debug] [ThreadPool]: DuckDB adapter: Error running SQL: macro list_schemas
+[0m00:32:40.368526 [debug] [ThreadPool]: DuckDB adapter: Rolling back transaction.
+[0m00:32:40.368649 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m00:32:40.370885 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m00:32:40.371050 [debug] [MainThread]: Connection 'list_analysis' was properly closed.
+[0m00:32:40.371194 [info ] [MainThread]: 
+[0m00:32:40.371340 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 0.05 seconds (0.05s).
+[0m00:32:40.371574 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+IO Error: Could not set lock on file "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/data/processed/analysis.duckdb": Conflicting lock is held in /opt/homebrew/Cellar/duckdb/1.5.5/bin/duckdb (PID 7613) by user gregoryjoshua. See also https://duckdb.org/docs/stable/connect/concurrency
+[0m00:32:40.380193 [error] [MainThread]: Traceback (most recent call last):
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 110, in exception_handler
+    yield
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/sql/connections.py", line 147, in add_query
+    cursor = connection.handle.cursor()
+             ^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/contracts/connection.py", line 96, in handle
+    self._handle.resolve(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/contracts/connection.py", line 120, in resolve
+    return self.opener(connection)
+           ~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 68, in open
+    connection.handle = cls._ENV.handle()
+                        ~~~~~~~~~~~~~~~^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/environments/local.py", line 79, in handle
+    self.conn = self.initialize_db(self.creds, self._plugins)
+                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/environments/__init__.py", line 164, in initialize_db
+    conn = duckdb.connect(creds.path, read_only=False, config=config)
+_duckdb.IOException: IO Error: Could not set lock on file "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/data/processed/analysis.duckdb": Conflicting lock is held in /opt/homebrew/Cellar/duckdb/1.5.5/bin/duckdb (PID 7613) by user gregoryjoshua. See also https://duckdb.org/docs/stable/connect/concurrency
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 110, in exception_handler
+    yield
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/base/impl.py", line 1372, in execute_macro
+    result = macro_function(**kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/clients/jinja.py", line 427, in __call__
+    return self.call_macro(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/clients/jinja.py", line 395, in call_macro
+    return macro(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 770, in __call__
+    return self._invoke(arguments, autoescape)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+  File "<template>", line 20, in macro
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/sandbox.py", line 401, in call
+    return __context.call(__obj, *args, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 303, in call
+    return __obj(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/clients/jinja.py", line 151, in __call__
+    return self.call_macro(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/clients/jinja.py", line 395, in call_macro
+    return macro(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 770, in __call__
+    return self._invoke(arguments, autoescape)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+  File "<template>", line 50, in macro
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/sandbox.py", line 401, in call
+    return __context.call(__obj, *args, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 303, in call
+    return __obj(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/clients/jinja.py", line 151, in __call__
+    return self.call_macro(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/clients/jinja.py", line 395, in call_macro
+    return macro(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 770, in __call__
+    return self._invoke(arguments, autoescape)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+  File "<template>", line 33, in macro
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/sandbox.py", line 401, in call
+    return __context.call(__obj, *args, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 303, in call
+    return __obj(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/clients/jinja.py", line 151, in __call__
+    return self.call_macro(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/clients/jinja.py", line 395, in call_macro
+    return macro(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 770, in __call__
+    return self._invoke(arguments, autoescape)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+  File "<template>", line 52, in macro
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/sandbox.py", line 401, in call
+    return __context.call(__obj, *args, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/jinja2/runtime.py", line 303, in call
+    return __obj(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/record.py", line 538, in record_replay_wrapper
+    return func_to_record(*call_args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/base/impl.py", line 523, in execute
+    return self.connections.execute(sql=sql, auto_begin=auto_begin, fetch=fetch, limit=limit)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 145, in execute
+    return super().execute(sql, auto_begin, fetch, limit)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/sql/connections.py", line 219, in execute
+    _, cursor = self.add_query(sql, auto_begin)
+                ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/sql/connections.py", line 131, in add_query
+    with self.exception_handler(sql):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 117, in exception_handler
+    self.rollback_if_open()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/base/connections.py", line 125, in rollback_if_open
+    if conn is not None and conn.handle and conn.transaction_open:
+                            ^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/contracts/connection.py", line 96, in handle
+    self._handle.resolve(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/contracts/connection.py", line 120, in resolve
+    return self.opener(connection)
+           ~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 68, in open
+    connection.handle = cls._ENV.handle()
+                        ~~~~~~~~~~~~~~~^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/environments/local.py", line 79, in handle
+    self.conn = self.initialize_db(self.creds, self._plugins)
+                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/environments/__init__.py", line 164, in initialize_db
+    conn = duckdb.connect(creds.path, read_only=False, config=config)
+_duckdb.IOException: IO Error: Could not set lock on file "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/data/processed/analysis.duckdb": Conflicting lock is held in /opt/homebrew/Cellar/duckdb/1.5.5/bin/duckdb (PID 7613) by user gregoryjoshua. See also https://duckdb.org/docs/stable/connect/concurrency
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/requires.py", line 198, in wrapper
+    result, success = func(*args, **kwargs)
+                      ~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/requires.py", line 144, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/requires.py", line 295, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/requires.py", line 340, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/requires.py", line 387, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/requires.py", line 404, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/cli/main.py", line 609, in run
+    results = task.run()
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/task/runnable.py", line 775, in run
+    result = self.execute_with_hooks(selected_uids)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/task/runnable.py", line 701, in execute_with_hooks
+    before_run_status = self.before_run(adapter, selected_uids)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/task/run.py", line 1313, in before_run
+    self.create_schemas(adapter, required_schemas)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/task/runnable.py", line 883, in create_schemas
+    existing_schemas_lowered.update(ls_future.result())
+                                    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 447, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 396, in __get_result
+    raise self._exception
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt_common/utils/executor.py", line 20, in connected
+    return func(*args, **kwargs)
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/task/runnable.py", line 858, in list_schemas
+    for s in adapter.list_schemas(database_quoted)
+             ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/sql/impl.py", line 219, in list_schemas
+    results = self.execute_macro(LIST_SCHEMAS_MACRO_NAME, kwargs={"database": database})
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/base/impl.py", line 1371, in execute_macro
+    with self.connections.exception_handler(f"macro {macro_name}"):
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 117, in exception_handler
+    self.rollback_if_open()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/base/connections.py", line 125, in rollback_if_open
+    if conn is not None and conn.handle and conn.transaction_open:
+                            ^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/contracts/connection.py", line 96, in handle
+    self._handle.resolve(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/contracts/connection.py", line 120, in resolve
+    return self.opener(connection)
+           ~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/connections.py", line 68, in open
+    connection.handle = cls._ENV.handle()
+                        ~~~~~~~~~~~~~~~^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/environments/local.py", line 79, in handle
+    self.conn = self.initialize_db(self.creds, self._plugins)
+                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/.venv/lib/python3.14/site-packages/dbt/adapters/duckdb/environments/__init__.py", line 164, in initialize_db
+    conn = duckdb.connect(creds.path, read_only=False, config=config)
+_duckdb.IOException: IO Error: Could not set lock on file "/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/data/processed/analysis.duckdb": Conflicting lock is held in /opt/homebrew/Cellar/duckdb/1.5.5/bin/duckdb (PID 7613) by user gregoryjoshua. See also https://duckdb.org/docs/stable/connect/concurrency
+
+[0m00:32:40.384806 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 1.0785818, "process_in_blocks": "0", "process_kernel_time": 0.25271, "process_mem_max_rss": "170967040", "process_out_blocks": "0", "process_user_time": 1.511757}
+[0m00:32:40.385047 [debug] [MainThread]: Command `dbt run` failed at 00:32:40.385004 after 1.08 seconds
+[0m00:32:40.385222 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a872a50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ab96780>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ab96990>]}
+[0m00:32:40.385387 [debug] [MainThread]: Flushing usage events
+[0m00:32:40.717768 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m00:33:10.065379 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c8ce900>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e166850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e166ad0>]}
+
+
+============================== 00:33:10.068871 | 45e992ba-8066-4b5e-b8ac-71986bf473f3 ==============================
+[0m00:33:10.068871 [info ] [MainThread]: Running with dbt=1.12.5
+[0m00:33:10.069209 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'printer_width': '80', 'send_anonymous_usage_stats': 'True', 'use_experimental_parser': 'False', 'target_path': 'None', 'fail_fast': 'False', 'version_check': 'True', 'quiet': 'False', 'debug': 'False', 'no_print': 'None', 'warn_error': 'None', 'log_cache_events': 'False', 'use_colors': 'True', 'profiles_dir': '/Users/gregoryjoshua/.dbt', 'introspect': 'True', 'maximum_seed_size_mib': '1', 'invocation_command': 'dbt run', 'empty': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'cache_selected_only': 'False', 'partial_parse': 'True', 'log_path': '/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/logs', 'static_parser': 'True', 'log_format': 'default'}
+[0m00:33:10.277969 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e216520>]}
+[0m00:33:10.307878 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10d321ae0>]}
+[0m00:33:10.309298 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m00:33:10.376295 [debug] [MainThread]: checksum: 35b5aaaa2a719e044217e44f0450b7b439bc1be839400f70b649ea78fb4ac325, vars: {}, profile: kp_analysis, target: dev, version: 1.12.5
+[0m00:33:10.435682 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m00:33:10.435874 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m00:33:10.436001 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m00:33:10.441144 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e2b9850>]}
+[0m00:33:10.487617 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:33:10.489498 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:33:10.501408 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:33:10.509021 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e7cd6d0>]}
+[0m00:33:10.509243 [info ] [MainThread]: Found 3 models, 500 macros
+[0m00:33:10.509407 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e90e270>]}
+[0m00:33:10.510326 [info ] [MainThread]: 
+[0m00:33:10.510491 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m00:33:10.510628 [info ] [MainThread]: 
+[0m00:33:10.510901 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m00:33:10.511325 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_analysis'
+[0m00:33:10.544528 [debug] [ThreadPool]: Using duckdb connection "list_analysis"
+[0m00:33:10.544747 [debug] [ThreadPool]: On list_analysis: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"analysis"'
+    
+  
+  
+[0m00:33:10.544896 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m00:33:10.563549 [debug] [ThreadPool]: SQL status: OK in 0.019 seconds
+[0m00:33:10.564447 [debug] [ThreadPool]: On list_analysis: Close
+[0m00:33:10.564786 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_analysis, now create_analysis_main_staging)
+[0m00:33:10.564999 [debug] [ThreadPool]: Creating schema "database: "analysis"
+schema: "main_staging"
+"
+[0m00:33:10.569136 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:33:10.569289 [debug] [ThreadPool]: On create_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "create_analysis_main_staging"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='analysis'
+        and type != 'duckdb'
+    
+  
+[0m00:33:10.569412 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m00:33:10.570602 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m00:33:10.571242 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:33:10.571357 [debug] [ThreadPool]: On create_analysis_main_staging: BEGIN
+[0m00:33:10.571526 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:33:10.571641 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:33:10.571758 [debug] [ThreadPool]: On create_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "create_analysis_main_staging"} */
+
+    
+    
+        create schema if not exists "analysis"."main_staging"
+    
+[0m00:33:10.572255 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:33:10.572569 [debug] [ThreadPool]: On create_analysis_main_staging: COMMIT
+[0m00:33:10.572684 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:33:10.572789 [debug] [ThreadPool]: On create_analysis_main_staging: COMMIT
+[0m00:33:10.573294 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:33:10.573416 [debug] [ThreadPool]: On create_analysis_main_staging: Close
+[0m00:33:10.575956 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_analysis_main_staging, now list_analysis_main_staging)
+[0m00:33:10.578252 [debug] [ThreadPool]: Using duckdb connection "list_analysis_main_staging"
+[0m00:33:10.578402 [debug] [ThreadPool]: On list_analysis_main_staging: BEGIN
+[0m00:33:10.578517 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m00:33:10.578710 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:33:10.578827 [debug] [ThreadPool]: Using duckdb connection "list_analysis_main_staging"
+[0m00:33:10.578949 [debug] [ThreadPool]: On list_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis_main_staging"} */
+select
+      'analysis' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_staging'
+    and lower(table_catalog) = 'analysis'
+  
+[0m00:33:10.581395 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m00:33:10.581890 [debug] [ThreadPool]: On list_analysis_main_staging: ROLLBACK
+[0m00:33:10.582074 [debug] [ThreadPool]: On list_analysis_main_staging: Close
+[0m00:33:10.582315 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ea93450>]}
+[0m00:33:10.582544 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:33:10.582672 [debug] [MainThread]: On master: BEGIN
+[0m00:33:10.582780 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m00:33:10.582980 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:33:10.583105 [debug] [MainThread]: On master: COMMIT
+[0m00:33:10.583222 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:33:10.583352 [debug] [MainThread]: On master: COMMIT
+[0m00:33:10.583515 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:33:10.583630 [debug] [MainThread]: On master: Close
+[0m00:33:10.586419 [debug] [Thread-1 (]: Began running node model.kp_analysis.stg_cms_service_areas
+[0m00:33:10.586661 [info ] [Thread-1 (]: 1 of 1 START sql view model main_staging.stg_cms_service_areas ................. [RUN]
+[0m00:33:10.586861 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_analysis_main_staging, now model.kp_analysis.stg_cms_service_areas)
+[0m00:33:10.587013 [debug] [Thread-1 (]: Began compiling node model.kp_analysis.stg_cms_service_areas
+[0m00:33:10.589752 [debug] [Thread-1 (]: Writing injected SQL for node "model.kp_analysis.stg_cms_service_areas"
+[0m00:33:10.590353 [debug] [Thread-1 (]: Began executing node model.kp_analysis.stg_cms_service_areas
+[0m00:33:10.605310 [debug] [Thread-1 (]: Writing runtime sql for node "model.kp_analysis.stg_cms_service_areas"
+[0m00:33:10.606046 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:33:10.606235 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: BEGIN
+[0m00:33:10.606369 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m00:33:10.606625 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:33:10.606793 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:33:10.607029 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+  
+  create view "analysis"."main_staging"."stg_cms_service_areas__dbt_tmp" as (
+    with source as (
+    select
+        *
+    from read_csv(
+    '../raw/cms/service_areas/*.csv',
+    union_by_name = true,
+    filename = true,
+    encoding = 'CP1252',
+    all_varchar = true
+    )
+),
+
+renamed as (
+    select
+        "BUSINESS YEAR"::integer as year,
+        trim(split_part("COUNTY", ' - ', 1)) as county_name,
+        trim(split_part("COUNTY", ' - ', 2)) as county_fips,
+        TRIM("STATE CODE") as state_code,
+        TRIM("ISSUER ID") as issuer_id,
+        TRIM("SERVICE AREA ID") as service_area_id,
+        "SERVICE AREA NAME" as service_area_name,
+        case
+            when lower(trim("COVER ENTIRE STATE")) in ('yes', 'true') then true
+            when lower(trim("COVER ENTIRE STATE")) in ('no', 'false') then false
+            else null
+        end as covers_entire_state,
+        case
+            when lower(trim("PARTIAL COUNTY")) in ('yes', 'true') then true
+            when lower(trim("PARTIAL COUNTY")) in ('no', 'false') then false
+            else null
+        end as is_partial_county,
+        "ZIP CODE" as zip_codes,
+        "MARKET COVERAGE" as market_coverage,
+        case
+            when trim("DENTAL PLAN ONLY") = 'Yes' then true
+            when trim("DENTAL PLAN ONLY") = 'No' then false
+            else null
+        end as is_dental_plan_only
+    from source
+)
+
+select * from renamed
+  );
+
+[0m00:33:10.615190 [debug] [Thread-1 (]: DuckDB adapter: duckdb error: IO Error: No files found that match the pattern "../raw/cms/service_areas/*.csv"
+
+LINE 8:     from read_csv(
+                 ^
+[0m00:33:10.615416 [debug] [Thread-1 (]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+  
+  create view "analysis"."main_staging"."stg_cms_service_areas__dbt_tmp" as (
+    with source as (
+    select
+        *
+    from read_csv(
+    '../raw/cms/service_areas/*.csv',
+    union_by_name = true,
+    filename = true,
+    encoding = 'CP1252',
+    all_varchar = true
+    )
+),
+
+renamed as (
+    select
+        "BUSINESS YEAR"::integer as year,
+        trim(split_part("COUNTY", ' - ', 1)) as county_name,
+        trim(split_part("COUNTY", ' - ', 2)) as county_fips,
+        TRIM("STATE CODE") as state_code,
+        TRIM("ISSUER ID") as issuer_id,
+        TRIM("SERVICE AREA ID") as service_area_id,
+        "SERVICE AREA NAME" as service_area_name,
+        case
+            when lower(trim("COVER ENTIRE STATE")) in ('yes', 'true') then true
+            when lower(trim("COVER ENTIRE STATE")) in ('no', 'false') then false
+            else null
+        end as covers_entire_state,
+        case
+            when lower(trim("PARTIAL COUNTY")) in ('yes', 'true') then true
+            when lower(trim("PARTIAL COUNTY")) in ('no', 'false') then false
+            else null
+        end as is_partial_county,
+        "ZIP CODE" as zip_codes,
+        "MARKET COVERAGE" as market_coverage,
+        case
+            when trim("DENTAL PLAN ONLY") = 'Yes' then true
+            when trim("DENTAL PLAN ONLY") = 'No' then false
+            else null
+        end as is_dental_plan_only
+    from source
+)
+
+select * from renamed
+  );
+
+[0m00:33:10.615593 [debug] [Thread-1 (]: DuckDB adapter: Rolling back transaction.
+[0m00:33:10.615729 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: ROLLBACK
+[0m00:33:10.616000 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: Close
+[0m00:33:10.620784 [debug] [Thread-1 (]: Runtime Error in model stg_cms_service_areas (models/staging/cms/stg_cms_service_areas.sql)
+  IO Error: No files found that match the pattern "../raw/cms/service_areas/*.csv"
+  
+  LINE 8:     from read_csv(
+                   ^
+[0m00:33:10.621802 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '45e992ba-8066-4b5e-b8ac-71986bf473f3', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e717890>]}
+[0m00:33:10.622110 [error] [Thread-1 (]: 1 of 1 ERROR creating sql view model main_staging.stg_cms_service_areas ........ [[31mERROR[0m in 0.03s]
+[0m00:33:10.622392 [debug] [Thread-1 (]: Finished running node model.kp_analysis.stg_cms_service_areas
+[0m00:33:10.622629 [debug] [Thread-7 (]: Marking all children of 'model.kp_analysis.stg_cms_service_areas' to be skipped because of status 'error'.  Reason: Runtime Error in model stg_cms_service_areas (models/staging/cms/stg_cms_service_areas.sql)
+  IO Error: No files found that match the pattern "../raw/cms/service_areas/*.csv"
+  
+  LINE 8:     from read_csv(
+                   ^.
+[0m00:33:10.623470 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:33:10.623605 [debug] [MainThread]: On master: BEGIN
+[0m00:33:10.623722 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m00:33:10.623917 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:33:10.624034 [debug] [MainThread]: On master: COMMIT
+[0m00:33:10.624143 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:33:10.624252 [debug] [MainThread]: On master: COMMIT
+[0m00:33:10.624407 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:33:10.624523 [debug] [MainThread]: On master: Close
+[0m00:33:10.624681 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m00:33:10.624791 [debug] [MainThread]: Connection 'model.kp_analysis.stg_cms_service_areas' was properly closed.
+[0m00:33:10.624912 [info ] [MainThread]: 
+[0m00:33:10.625046 [info ] [MainThread]: Finished running 1 view model in 0 hours 0 minutes and 0.11 seconds (0.11s).
+[0m00:33:10.625348 [debug] [MainThread]: Command end result
+[0m00:33:10.644901 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:33:10.646788 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:33:10.648395 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:33:10.652116 [debug] [MainThread]: Wrote artifact RunExecutionResult to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/run_results.json
+[0m00:33:10.652280 [info ] [MainThread]: 
+[0m00:33:10.652452 [info ] [MainThread]: [31mCompleted with 1 error, 0 partial successes, and 0 warnings:[0m
+[0m00:33:10.652592 [info ] [MainThread]: 
+[0m00:33:10.652767 [error] [MainThread]: [[31mERROR[0m]: in model stg_cms_service_areas (models/staging/cms/stg_cms_service_areas.sql)
+[0m00:33:10.652928 [error] [MainThread]:   Runtime Error in model stg_cms_service_areas (models/staging/cms/stg_cms_service_areas.sql)
+  IO Error: No files found that match the pattern "../raw/cms/service_areas/*.csv"
+  
+  LINE 8:     from read_csv(
+                   ^
+[0m00:33:10.653050 [info ] [MainThread]: 
+[0m00:33:10.653194 [info ] [MainThread]:   compiled code at target/compiled/kp_analysis/models/staging/cms/stg_cms_service_areas.sql
+[0m00:33:10.653314 [info ] [MainThread]: 
+[0m00:33:10.653511 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=1 SKIP=0 NO-OP=0 REUSED=0 TOTAL=1
+[0m00:33:10.656335 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 0.6429599, "process_in_blocks": "0", "process_kernel_time": 0.219099, "process_mem_max_rss": "173228032", "process_out_blocks": "0", "process_user_time": 1.087959}
+[0m00:33:10.656546 [debug] [MainThread]: Command `dbt run` failed at 00:33:10.656512 after 0.64 seconds
+[0m00:33:10.656719 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ec10260>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e2904b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e7827b0>]}
+[0m00:33:10.656866 [debug] [MainThread]: Flushing usage events
+[0m00:33:10.963023 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m00:34:00.400526 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ce32900>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e6c6850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e6c6ad0>]}
+
+
+============================== 00:34:00.404399 | 21c6902a-cc3c-4705-a65f-cd5abe5a93a2 ==============================
+[0m00:34:00.404399 [info ] [MainThread]: Running with dbt=1.12.5
+[0m00:34:00.404738 [debug] [MainThread]: running dbt with arguments {'no_print': 'None', 'maximum_seed_size_mib': '1', 'warn_error': 'None', 'printer_width': '80', 'static_parser': 'True', 'hints_enabled': 'True', 'profiles_dir': '/Users/gregoryjoshua/.dbt', 'quiet': 'False', 'partial_parse': 'True', 'invocation_command': 'dbt run', 'use_experimental_parser': 'False', 'log_path': '/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/logs', 'send_anonymous_usage_stats': 'True', 'debug': 'False', 'log_cache_events': 'False', 'cache_selected_only': 'False', 'use_colors': 'True', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'indirect_selection': 'eager', 'write_json': 'True', 'introspect': 'True', 'log_format': 'default', 'fail_fast': 'False', 'target_path': 'None', 'empty': 'False'}
+[0m00:34:00.608064 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e772520>]}
+[0m00:34:00.638423 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10d881ae0>]}
+[0m00:34:00.639867 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m00:34:00.760787 [debug] [MainThread]: checksum: 35b5aaaa2a719e044217e44f0450b7b439bc1be839400f70b649ea78fb4ac325, vars: {}, profile: kp_analysis, target: dev, version: 1.12.5
+[0m00:34:00.822501 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 1 files changed.
+[0m00:34:00.822784 [debug] [MainThread]: Partial parsing: updated file: kp_analysis://models/staging/cms/stg_cms_service_areas.sql
+[0m00:34:00.950491 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ed9c150>]}
+[0m00:34:00.984712 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:34:00.986770 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:34:00.998383 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:34:01.004852 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ef94b90>]}
+[0m00:34:01.005070 [info ] [MainThread]: Found 3 models, 500 macros
+[0m00:34:01.005232 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ef4c9f0>]}
+[0m00:34:01.006119 [info ] [MainThread]: 
+[0m00:34:01.006318 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m00:34:01.006450 [info ] [MainThread]: 
+[0m00:34:01.006685 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m00:34:01.007080 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_analysis'
+[0m00:34:01.039897 [debug] [ThreadPool]: Using duckdb connection "list_analysis"
+[0m00:34:01.040124 [debug] [ThreadPool]: On list_analysis: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"analysis"'
+    
+  
+  
+[0m00:34:01.040273 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m00:34:01.056426 [debug] [ThreadPool]: SQL status: OK in 0.016 seconds
+[0m00:34:01.057134 [debug] [ThreadPool]: On list_analysis: Close
+[0m00:34:01.057493 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_analysis, now create_analysis_main_staging)
+[0m00:34:01.057703 [debug] [ThreadPool]: Creating schema "database: "analysis"
+schema: "main_staging"
+"
+[0m00:34:01.061559 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:34:01.061735 [debug] [ThreadPool]: On create_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "create_analysis_main_staging"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='analysis'
+        and type != 'duckdb'
+    
+  
+[0m00:34:01.061877 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m00:34:01.062633 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m00:34:01.063171 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:34:01.063296 [debug] [ThreadPool]: On create_analysis_main_staging: BEGIN
+[0m00:34:01.063478 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:34:01.063597 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:34:01.063715 [debug] [ThreadPool]: On create_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "create_analysis_main_staging"} */
+
+    
+    
+        create schema if not exists "analysis"."main_staging"
+    
+[0m00:34:01.063990 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:34:01.064312 [debug] [ThreadPool]: On create_analysis_main_staging: COMMIT
+[0m00:34:01.064462 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:34:01.064590 [debug] [ThreadPool]: On create_analysis_main_staging: COMMIT
+[0m00:34:01.064808 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:34:01.064984 [debug] [ThreadPool]: On create_analysis_main_staging: Close
+[0m00:34:01.067447 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_analysis_main_staging, now list_analysis_main_staging)
+[0m00:34:01.069610 [debug] [ThreadPool]: Using duckdb connection "list_analysis_main_staging"
+[0m00:34:01.069776 [debug] [ThreadPool]: On list_analysis_main_staging: BEGIN
+[0m00:34:01.069898 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m00:34:01.070105 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:34:01.070224 [debug] [ThreadPool]: Using duckdb connection "list_analysis_main_staging"
+[0m00:34:01.070350 [debug] [ThreadPool]: On list_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis_main_staging"} */
+select
+      'analysis' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_staging'
+    and lower(table_catalog) = 'analysis'
+  
+[0m00:34:01.073044 [debug] [ThreadPool]: SQL status: OK in 0.003 seconds
+[0m00:34:01.073533 [debug] [ThreadPool]: On list_analysis_main_staging: ROLLBACK
+[0m00:34:01.073718 [debug] [ThreadPool]: On list_analysis_main_staging: Close
+[0m00:34:01.073959 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f16ef70>]}
+[0m00:34:01.074177 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:34:01.074297 [debug] [MainThread]: On master: BEGIN
+[0m00:34:01.074402 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m00:34:01.074593 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:34:01.074715 [debug] [MainThread]: On master: COMMIT
+[0m00:34:01.074828 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:34:01.074938 [debug] [MainThread]: On master: COMMIT
+[0m00:34:01.075099 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:34:01.075214 [debug] [MainThread]: On master: Close
+[0m00:34:01.076617 [debug] [Thread-1 (]: Began running node model.kp_analysis.stg_cms_service_areas
+[0m00:34:01.076856 [info ] [Thread-1 (]: 1 of 1 START sql view model main_staging.stg_cms_service_areas ................. [RUN]
+[0m00:34:01.077065 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_analysis_main_staging, now model.kp_analysis.stg_cms_service_areas)
+[0m00:34:01.077216 [debug] [Thread-1 (]: Began compiling node model.kp_analysis.stg_cms_service_areas
+[0m00:34:01.079991 [debug] [Thread-1 (]: Writing injected SQL for node "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:01.080365 [debug] [Thread-1 (]: Began executing node model.kp_analysis.stg_cms_service_areas
+[0m00:34:01.095332 [debug] [Thread-1 (]: Writing runtime sql for node "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:01.095758 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:01.095919 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: BEGIN
+[0m00:34:01.096062 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m00:34:01.096356 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:34:01.096546 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:01.096737 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+  
+  create view "analysis"."main_staging"."stg_cms_service_areas__dbt_tmp" as (
+    with source as (
+    select
+        *
+    from read_csv(
+    '../data/raw/cms/service_areas/*.csv',
+    union_by_name = true,
+    filename = true,
+    encoding = 'CP1252',
+    all_varchar = true
+    )
+),
+
+renamed as (
+    select
+        "BUSINESS YEAR"::integer as year,
+        trim(split_part("COUNTY", ' - ', 1)) as county_name,
+        trim(split_part("COUNTY", ' - ', 2)) as county_fips,
+        TRIM("STATE CODE") as state_code,
+        TRIM("ISSUER ID") as issuer_id,
+        TRIM("SERVICE AREA ID") as service_area_id,
+        "SERVICE AREA NAME" as service_area_name,
+        case
+            when lower(trim("COVER ENTIRE STATE")) in ('yes', 'true') then true
+            when lower(trim("COVER ENTIRE STATE")) in ('no', 'false') then false
+            else null
+        end as covers_entire_state,
+        case
+            when lower(trim("PARTIAL COUNTY")) in ('yes', 'true') then true
+            when lower(trim("PARTIAL COUNTY")) in ('no', 'false') then false
+            else null
+        end as is_partial_county,
+        "ZIP CODE" as zip_codes,
+        "MARKET COVERAGE" as market_coverage,
+        case
+            when trim("DENTAL PLAN ONLY") = 'Yes' then true
+            when trim("DENTAL PLAN ONLY") = 'No' then false
+            else null
+        end as is_dental_plan_only
+    from source
+)
+
+select * from renamed
+  );
+
+[0m00:34:02.980725 [debug] [Thread-1 (]: SQL status: OK in 1.884 seconds
+[0m00:34:02.983672 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:02.983884 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+alter view "analysis"."main_staging"."stg_cms_service_areas__dbt_tmp" rename to "stg_cms_service_areas"
+[0m00:34:02.985310 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m00:34:02.991112 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: COMMIT
+[0m00:34:02.991279 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:02.991423 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: COMMIT
+[0m00:34:02.992189 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m00:34:02.994599 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:34:02.994775 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+      drop view if exists "analysis"."main_staging"."stg_cms_service_areas__dbt_backup" cascade
+    
+[0m00:34:02.995089 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:34:02.996261 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: Close
+[0m00:34:02.997242 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '21c6902a-cc3c-4705-a65f-cd5abe5a93a2', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f2e1010>]}
+[0m00:34:02.997570 [info ] [Thread-1 (]: 1 of 1 OK created sql view model main_staging.stg_cms_service_areas ............ [[32mOK[0m in 1.92s]
+[0m00:34:02.997841 [debug] [Thread-1 (]: Finished running node model.kp_analysis.stg_cms_service_areas
+[0m00:34:02.998446 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:34:02.998598 [debug] [MainThread]: On master: BEGIN
+[0m00:34:02.998727 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m00:34:02.998949 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:34:02.999074 [debug] [MainThread]: On master: COMMIT
+[0m00:34:02.999192 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:34:02.999308 [debug] [MainThread]: On master: COMMIT
+[0m00:34:02.999479 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:34:02.999596 [debug] [MainThread]: On master: Close
+[0m00:34:02.999762 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m00:34:02.999876 [debug] [MainThread]: Connection 'model.kp_analysis.stg_cms_service_areas' was properly closed.
+[0m00:34:03.000004 [info ] [MainThread]: 
+[0m00:34:03.000143 [info ] [MainThread]: Finished running 1 view model in 0 hours 0 minutes and 1.99 seconds (1.99s).
+[0m00:34:03.000429 [debug] [MainThread]: Command end result
+[0m00:34:03.017190 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:34:03.018829 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:34:03.020208 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:34:03.023758 [debug] [MainThread]: Wrote artifact RunExecutionResult to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/run_results.json
+[0m00:34:03.023921 [info ] [MainThread]: 
+[0m00:34:03.024118 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m00:34:03.024296 [info ] [MainThread]: 
+[0m00:34:03.024483 [info ] [MainThread]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=1
+[0m00:34:03.026859 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 2.6886842, "process_in_blocks": "0", "process_kernel_time": 0.709383, "process_mem_max_rss": "363069440", "process_out_blocks": "0", "process_user_time": 2.832784}
+[0m00:34:03.027111 [debug] [MainThread]: Command `dbt run` succeeded at 00:34:03.027070 after 2.69 seconds
+[0m00:34:03.027299 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f26df40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e4d6e90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ec15f90>]}
+[0m00:34:03.027465 [debug] [MainThread]: Flushing usage events
+[0m00:34:03.378586 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m00:37:59.220173 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10d072900>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e90e850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e90ead0>]}
+
+
+============================== 00:37:59.224134 | 05c71a00-2cc3-4a99-9c97-d3d072c4f798 ==============================
+[0m00:37:59.224134 [info ] [MainThread]: Running with dbt=1.12.5
+[0m00:37:59.224464 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'log_format': 'default', 'quiet': 'False', 'target_path': 'None', 'use_experimental_parser': 'False', 'partial_parse': 'True', 'warn_error': 'None', 'printer_width': '80', 'cache_selected_only': 'False', 'use_colors': 'True', 'indirect_selection': 'eager', 'static_parser': 'True', 'maximum_seed_size_mib': '1', 'log_path': '/Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/logs', 'profiles_dir': '/Users/gregoryjoshua/.dbt', 'hints_enabled': 'True', 'invocation_command': 'dbt run', 'fail_fast': 'False', 'send_anonymous_usage_stats': 'True', 'empty': 'False', 'introspect': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'no_print': 'None', 'log_cache_events': 'False', 'debug': 'False', 'write_json': 'True'}
+[0m00:37:59.436197 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e9ba520>]}
+[0m00:37:59.469676 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dac5ae0>]}
+[0m00:37:59.471386 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m00:37:59.564345 [debug] [MainThread]: checksum: 35b5aaaa2a719e044217e44f0450b7b439bc1be839400f70b649ea78fb4ac325, vars: {}, profile: kp_analysis, target: dev, version: 1.12.5
+[0m00:37:59.606178 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m00:37:59.606461 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ea5df50>]}
+[0m00:38:00.122430 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10eca65d0>]}
+[0m00:38:00.157008 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:38:00.159878 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:38:00.173286 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:38:00.180464 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f1bdc50>]}
+[0m00:38:00.181210 [info ] [MainThread]: Found 3 models, 500 macros
+[0m00:38:00.181398 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ee48e20>]}
+[0m00:38:00.182325 [info ] [MainThread]: 
+[0m00:38:00.182499 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m00:38:00.182623 [info ] [MainThread]: 
+[0m00:38:00.182856 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m00:38:00.183256 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_analysis'
+[0m00:38:00.219699 [debug] [ThreadPool]: Using duckdb connection "list_analysis"
+[0m00:38:00.219919 [debug] [ThreadPool]: On list_analysis: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"analysis"'
+    
+  
+  
+[0m00:38:00.220065 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m00:38:00.239084 [debug] [ThreadPool]: SQL status: OK in 0.019 seconds
+[0m00:38:00.240505 [debug] [ThreadPool]: On list_analysis: Close
+[0m00:38:00.240876 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_analysis, now create_analysis_main_staging)
+[0m00:38:00.241097 [debug] [ThreadPool]: Creating schema "database: "analysis"
+schema: "main_staging"
+"
+[0m00:38:00.244657 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:38:00.244825 [debug] [ThreadPool]: On create_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "create_analysis_main_staging"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='analysis'
+        and type != 'duckdb'
+    
+  
+[0m00:38:00.244952 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m00:38:00.246032 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m00:38:00.246690 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:38:00.246820 [debug] [ThreadPool]: On create_analysis_main_staging: BEGIN
+[0m00:38:00.247000 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:38:00.247117 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:38:00.247233 [debug] [ThreadPool]: On create_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "create_analysis_main_staging"} */
+
+    
+    
+        create schema if not exists "analysis"."main_staging"
+    
+[0m00:38:00.247619 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:38:00.247939 [debug] [ThreadPool]: On create_analysis_main_staging: COMMIT
+[0m00:38:00.248056 [debug] [ThreadPool]: Using duckdb connection "create_analysis_main_staging"
+[0m00:38:00.248161 [debug] [ThreadPool]: On create_analysis_main_staging: COMMIT
+[0m00:38:00.248317 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:38:00.248434 [debug] [ThreadPool]: On create_analysis_main_staging: Close
+[0m00:38:00.250805 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_analysis_main_staging, now list_analysis_main_staging)
+[0m00:38:00.252969 [debug] [ThreadPool]: Using duckdb connection "list_analysis_main_staging"
+[0m00:38:00.253107 [debug] [ThreadPool]: On list_analysis_main_staging: BEGIN
+[0m00:38:00.253217 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m00:38:00.253414 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m00:38:00.253530 [debug] [ThreadPool]: Using duckdb connection "list_analysis_main_staging"
+[0m00:38:00.253655 [debug] [ThreadPool]: On list_analysis_main_staging: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "connection_name": "list_analysis_main_staging"} */
+select
+      'analysis' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_staging'
+    and lower(table_catalog) = 'analysis'
+  
+[0m00:38:00.255715 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m00:38:00.256365 [debug] [ThreadPool]: On list_analysis_main_staging: ROLLBACK
+[0m00:38:00.256540 [debug] [ThreadPool]: On list_analysis_main_staging: Close
+[0m00:38:00.256852 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f126bd0>]}
+[0m00:38:00.257047 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:38:00.257160 [debug] [MainThread]: On master: BEGIN
+[0m00:38:00.257265 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m00:38:00.257440 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:38:00.257556 [debug] [MainThread]: On master: COMMIT
+[0m00:38:00.257666 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:38:00.257776 [debug] [MainThread]: On master: COMMIT
+[0m00:38:00.257927 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:38:00.258040 [debug] [MainThread]: On master: Close
+[0m00:38:00.259590 [debug] [Thread-1 (]: Began running node model.kp_analysis.stg_cms_service_areas
+[0m00:38:00.260090 [info ] [Thread-1 (]: 1 of 1 START sql table model main_staging.stg_cms_service_areas ................ [RUN]
+[0m00:38:00.260593 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_analysis_main_staging, now model.kp_analysis.stg_cms_service_areas)
+[0m00:38:00.260786 [debug] [Thread-1 (]: Began compiling node model.kp_analysis.stg_cms_service_areas
+[0m00:38:00.263684 [debug] [Thread-1 (]: Writing injected SQL for node "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:00.264490 [debug] [Thread-1 (]: Began executing node model.kp_analysis.stg_cms_service_areas
+[0m00:38:00.289127 [debug] [Thread-1 (]: Writing runtime sql for node "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:00.289873 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:00.290045 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: BEGIN
+[0m00:38:00.290186 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m00:38:00.290483 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:38:00.290629 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:00.290807 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+    
+
+    create  table
+      "analysis"."main_staging"."stg_cms_service_areas__dbt_tmp"
+  
+    
+    as (
+      with source as (
+    select
+        *
+    from read_csv(
+    '../data/raw/cms/service_areas/*.csv',
+    union_by_name = true,
+    filename = true,
+    encoding = 'CP1252',
+    all_varchar = true
+    )
+),
+
+renamed as (
+    select
+        "BUSINESS YEAR"::integer as year,
+        trim(split_part("COUNTY", ' - ', 1)) as county_name,
+        trim(split_part("COUNTY", ' - ', 2)) as county_fips,
+        TRIM("STATE CODE") as state_code,
+        TRIM("ISSUER ID") as issuer_id,
+        TRIM("SERVICE AREA ID") as service_area_id,
+        "SERVICE AREA NAME" as service_area_name,
+        case
+            when lower(trim("COVER ENTIRE STATE")) in ('yes', 'true') then true
+            when lower(trim("COVER ENTIRE STATE")) in ('no', 'false') then false
+            else null
+        end as covers_entire_state,
+        case
+            when lower(trim("PARTIAL COUNTY")) in ('yes', 'true') then true
+            when lower(trim("PARTIAL COUNTY")) in ('no', 'false') then false
+            else null
+        end as is_partial_county,
+        "ZIP CODE" as zip_codes,
+        "MARKET COVERAGE" as market_coverage,
+        case
+            when trim("DENTAL PLAN ONLY") = 'Yes' then true
+            when trim("DENTAL PLAN ONLY") = 'No' then false
+            else null
+        end as is_dental_plan_only
+    from source
+)
+
+select * from renamed
+    );
+    
+  
+[0m00:38:01.055211 [debug] [Thread-1 (]: SQL status: OK in 0.764 seconds
+[0m00:38:01.057892 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:01.058088 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE database_name = 'analysis'
+      AND schema_name = 'main_staging'
+      AND table_name = 'stg_cms_service_areas'
+  
+[0m00:38:01.058548 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:38:01.061241 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:01.061429 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+alter view "analysis"."main_staging"."stg_cms_service_areas" rename to "stg_cms_service_areas__dbt_backup"
+[0m00:38:01.062145 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m00:38:01.063022 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:01.063184 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+alter table "analysis"."main_staging"."stg_cms_service_areas__dbt_tmp" rename to "stg_cms_service_areas"
+[0m00:38:01.063437 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:38:01.072017 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: COMMIT
+[0m00:38:01.072219 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:01.072373 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: COMMIT
+[0m00:38:01.082495 [debug] [Thread-1 (]: SQL status: OK in 0.010 seconds
+[0m00:38:01.084771 [debug] [Thread-1 (]: Using duckdb connection "model.kp_analysis.stg_cms_service_areas"
+[0m00:38:01.084955 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: /* {"app": "dbt", "dbt_version": "1.12.5", "profile_name": "kp_analysis", "target_name": "dev", "node_id": "model.kp_analysis.stg_cms_service_areas"} */
+
+      drop view if exists "analysis"."main_staging"."stg_cms_service_areas__dbt_backup" cascade
+    
+[0m00:38:01.085321 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m00:38:01.086464 [debug] [Thread-1 (]: On model.kp_analysis.stg_cms_service_areas: Close
+[0m00:38:01.087594 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '05c71a00-2cc3-4a99-9c97-d3d072c4f798', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10d3c0100>]}
+[0m00:38:01.087898 [info ] [Thread-1 (]: 1 of 1 OK created sql table model main_staging.stg_cms_service_areas ........... [[32mOK[0m in 0.83s]
+[0m00:38:01.088168 [debug] [Thread-1 (]: Finished running node model.kp_analysis.stg_cms_service_areas
+[0m00:38:01.088761 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:38:01.088895 [debug] [MainThread]: On master: BEGIN
+[0m00:38:01.089010 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m00:38:01.089213 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:38:01.089328 [debug] [MainThread]: On master: COMMIT
+[0m00:38:01.089438 [debug] [MainThread]: Using duckdb connection "master"
+[0m00:38:01.089546 [debug] [MainThread]: On master: COMMIT
+[0m00:38:01.089699 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m00:38:01.089812 [debug] [MainThread]: On master: Close
+[0m00:38:01.089965 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m00:38:01.090077 [debug] [MainThread]: Connection 'model.kp_analysis.stg_cms_service_areas' was properly closed.
+[0m00:38:01.090189 [info ] [MainThread]: 
+[0m00:38:01.090332 [info ] [MainThread]: Finished running 1 table model in 0 hours 0 minutes and 0.91 seconds (0.91s).
+[0m00:38:01.090612 [debug] [MainThread]: Command end result
+[0m00:38:01.107873 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/manifest.json
+[0m00:38:01.109512 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/semantic_manifest.json
+[0m00:38:01.111047 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/osi_document.json
+[0m00:38:01.114732 [debug] [MainThread]: Wrote artifact RunExecutionResult to /Users/gregoryjoshua/Desktop/Desktop - Gregoua’s MacBook Air/SF-State/BS895/kp-marketplace-analysis/dbt/target/run_results.json
+[0m00:38:01.114887 [info ] [MainThread]: 
+[0m00:38:01.115064 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m00:38:01.115520 [info ] [MainThread]: 
+[0m00:38:01.115668 [info ] [MainThread]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=1
+[0m00:38:01.118086 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 1.9524916, "process_in_blocks": "0", "process_kernel_time": 0.709871, "process_mem_max_rss": "388923392", "process_out_blocks": "0", "process_user_time": 3.836848}
+[0m00:38:01.118359 [debug] [MainThread]: Command `dbt run` succeeded at 00:38:01.118297 after 1.95 seconds
+[0m00:38:01.118571 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10eea11d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f50b0b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f1c80d0>]}
+[0m00:38:01.118748 [debug] [MainThread]: Flushing usage events
+[0m00:38:01.501674 [debug] [MainThread]: An error was encountered while trying to flush usage events

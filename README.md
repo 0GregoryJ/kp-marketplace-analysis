@@ -21,7 +21,23 @@
 ## Project Scope
 
 ## Data Sources
-
+... a table or something detailing the data
+- CMS
+    - California SBE QHP PUFs
+        - Service area
+        - Plan attributes
+        - Rates
+- Covered California
+    - Active member profiles
+    - Individual product prices
+- ACS
+    - S0101
+    - S1901
+    - B19301
+    - S1201
+    - S2301
+    - S2701
+- BLS LAUS
 ## Architecture
 
 ## Data Model

@@ -1,0 +1,14 @@
+
+name: 'kp_analysis'
+version: '1.0.0'
+
+profile: 'kp_analysis'
+
+model-paths: ["models"]
+
+models:
+  kp_analysis:
+    staging:
+      +materialized: table
+      cms:
+        +schema: staging
