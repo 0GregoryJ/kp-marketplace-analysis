@@ -1,0 +1,101 @@
+version: 1.0.0
+
+models:
+  - name: stg_bls_laus
+    description: "1 row per county x year labor market record from the BLS Local Area Unemployment Statistics (LAUS) dataset. Filtered to California, renamed source columns, and standardized geographic identifiers."
+    columns:
+      - name: year
+        description: "Calendar year associated with the labor market estimates."
+        data_tests:
+          - not_null
+
+      - name: laus_code
+        description: "BLS Local Area Unemployment Statistics geographic area code."
+        data_tests:
+          - not_null
+
+      - name: state_fips
+        description: "Two-digit state FIPS code."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['06']
+
+      - name: state_code
+        description: "Two-letter state abbreviation. Set to CA for California records."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['CA']
+
+      - name: county_fips
+        description: "County FIPS code provided by BLS."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "County name parsed from the BLS county and state field."
+        data_tests:
+          - not_null
+
+      - name: labor_force_total
+        description: "Estimated number of people in the civilian labor force."
+
+      - name: employed_total
+        description: "Estimated number of employed people."
+
+      - name: unemployed_total
+        description: "Estimated number of unemployed people."
+
+      - name: unemployment_rate
+        description: "Estimated unemployment rate as a percentage of the civilian labor force."
+  
+  - name: stg_bls_qcew
+    description: "1 row per county x year record from the BLS Quarterly Census of Employment and Wages (QCEW). Filtered to county-level total covered employment records and renamed/cast for analysis."
+    columns:
+    - name: year
+      description: "Calendar year associated with the QCEW annual averages."
+      data_tests:
+        - not_null
+
+    - name: state_code
+      description: "Two-letter state abbreviation. Set to CA for California records."
+      data_tests:
+        - not_null
+        - accepted_values:
+            values: ['CA']
+
+    - name: state_fips
+      description: "Two-digit state FIPS code. Set to 06 for California records."
+      data_tests:
+        - not_null
+        - accepted_values:
+            values: ['06']
+
+    - name: county_fips
+      description: "Five-digit county FIPS code."
+      data_tests:
+        - not_null
+
+    - name: county_name
+      description: "County name parsed from the QCEW area title."
+      data_tests:
+        - not_null
+
+    - name: establishment_count
+      description: "Annual average number of establishments covered by QCEW."
+
+    - name: employment_total
+      description: "Annual average employment level for jobs covered by QCEW."
+
+    - name: avg_annual_pay
+      description: "Average annual pay for jobs covered by QCEW."
+
+    - name: establishment_yoy_pct_change
+      description: "Over-the-year percent change in the annual average number of establishments."
+
+    - name: employment_yoy_pct_change
+      description: "Over-the-year percent change in annual average employment."
+
+    - name: avg_annual_pay_yoy_pct_change
+      description: "Over-the-year percent change in average annual pay."

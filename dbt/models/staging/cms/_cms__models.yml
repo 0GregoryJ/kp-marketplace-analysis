@@ -1,0 +1,193 @@
+version: 1.0.0
+
+models:
+  - name: stg_cms_service_areas
+    description: "1 row per issuer x service area x geographic area record. Renamed raw columns, casted year to integer, parsed county name and FIPS, and casted boolean columns to boolean."
+    columns:
+      - name: year
+        description: "Marketplace business year associated with the service area record."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "County name parsed from the source COUNTY field."
+
+      - name: county_fips
+        description: "Five-digit county FIPS code parsed from the source COUNTY field."
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: issuer_id
+        description: "CMS identifier for the insurance issuer."
+        data_tests:
+          - not_null
+
+      - name: service_area_id
+        description: "Identifier for the issuer-defined service area."
+        data_tests:
+          - not_null
+
+      - name: service_area_name
+        description: "Name of the issuer-defined service area."
+
+      - name: covers_entire_state
+        description: "Boolean indicating whether the service area covers the entire state."
+
+      - name: is_partial_county
+        description: "Boolean indicating whether the service area covers only part of the county."
+
+      - name: zip_codes
+        description: "ZIP code or ZIP code values associated with the service area when coverage is defined below the county level."
+
+      - name: market_coverage
+        description: "Market coverage category associated with the service area."
+
+      - name: is_dental_plan_only
+        description: "Boolean indicating whether the service area is associated only with dental plans."
+
+
+  - name: stg_cms_plan_attributes
+    description: "1 row per plan attribute record. Renamed raw columns, casted year to integer, and standardized selected boolean fields used for downstream marketplace and plan availability analysis."
+    columns:
+      - name: year
+        description: "Marketplace business year associated with the plan record."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: issuer_name
+        description: "Name of the insurance issuer."
+
+      - name: issuer_id
+        description: "CMS identifier for the insurance issuer."
+        data_tests:
+          - not_null
+
+      - name: market_coverage
+        description: "Market coverage category associated with the plan."
+
+      - name: is_dental_only
+        description: "Boolean indicating whether the plan is a dental-only plan."
+
+      - name: standard_component_id
+        description: "CMS standard component identifier associated with the plan."
+
+      - name: plan_id
+        description: "CMS identifier for the plan."
+        data_tests:
+          - not_null
+
+      - name: plan_marketing_name
+        description: "Consumer-facing marketing name of the plan."
+
+      - name: hios_product_id
+        description: "HIOS identifier for the product associated with the plan."
+
+      - name: service_area_id
+        description: "Identifier for the service area associated with the plan."
+        data_tests:
+          - not_null
+
+      - name: network_id
+        description: "Identifier for the provider network associated with the plan."
+
+      - name: plan_status
+        description: "Source value indicating whether the plan is new or existing."
+
+      - name: plan_type
+        description: "Plan type, such as HMO, PPO, or EPO."
+
+      - name: metal_level
+        description: "ACA metal level associated with the plan."
+
+      - name: qhp_non_qhp_type_id
+        description: "CMS classification identifying the plan as a QHP or non-QHP."
+
+      - name: plan_effective_date
+        description: "Effective date of the plan as reported by CMS."
+
+      - name: plan_expiration_date
+        description: "Expiration date of the plan as reported by CMS."
+
+      - name: is_hsa_eligible
+        description: "Boolean indicating whether the plan is eligible for use with a Health Savings Account."
+
+      - name: csr_variation_type
+        description: "Cost-sharing reduction variation type associated with the plan."
+
+      - name: issuer_actuarial_value
+        description: "Issuer-reported actuarial value for the plan."
+
+      - name: plan_design_type
+        description: "CMS plan design classification."
+      
+  - name: stg_cms_rates
+    description: "1 row per plan x rating area x age x tobacco rate record. Renamed raw columns and casted selected premium fields to numeric types for downstream premium analysis."
+    columns:
+      - name: year
+        description: "Marketplace business year associated with the rate record."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: issuer_id
+        description: "CMS identifier for the insurance issuer."
+        data_tests:
+          - not_null
+
+      - name: plan_id
+        description: "CMS identifier for the plan."
+        data_tests:
+          - not_null
+
+      - name: rating_area_id
+        description: "CMS identifier for the geographic rating area associated with the rate."
+        data_tests:
+          - not_null
+
+      - name: tobacco
+        description: "Tobacco-use category associated with the rate."
+
+      - name: age
+        description: "Age or age category associated with the rate."
+
+      - name: individual_rate
+        description: "Monthly premium rate for an individual subscriber."
+
+      - name: individual_tobacco_rate
+        description: "Monthly premium rate for an individual subscriber with tobacco use, when applicable."
+
+      - name: couple_rate
+        description: "Monthly premium rate for a couple."
+
+      - name: primary_subscriber_one_dependent_rate
+        description: "Monthly premium rate for a primary subscriber and one dependent."
+
+      - name: primary_subscriber_two_dependents_rate
+        description: "Monthly premium rate for a primary subscriber and two dependents."
+
+      - name: primary_subscriber_three_plus_dependents_rate
+        description: "Monthly premium rate for a primary subscriber and three or more dependents."
+
+      - name: couple_one_dependent_rate
+        description: "Monthly premium rate for a couple and one dependent."
+
+      - name: couple_two_dependents_rate
+        description: "Monthly premium rate for a couple and two dependents."
+
+      - name: couple_three_plus_dependents_rate
+        description: "Monthly premium rate for a couple and three or more dependents."
+
+      - name: qhp_non_qhp_type_id
+        description: "CMS classification identifying the plan as a QHP or non-QHP."

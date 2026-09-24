@@ -1,0 +1,48 @@
+version: 1.0.0
+
+models:
+  - name: stg_census_acs
+    description: "1 row per county x year record from the Census American Community Survey (ACS) 5-year estimates. Retains population, household income, poverty, and health insurance measures for county-level analysis."
+
+    columns:
+      - name: year
+        description: "ACS 5-year estimate year."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation. Set to CA for California records."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['CA']
+
+      - name: county_fips
+        description: "Five-digit county FIPS code derived from the ACS GEO_ID."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "County name parsed from the ACS NAME field."
+        data_tests:
+          - not_null
+
+      - name: population_total
+        description: "ACS estimate of total population."
+        data_tests:
+          - not_null
+
+      - name: median_household_income
+        description: "ACS estimate of median household income."
+        data_tests:
+          - not_null
+
+      - name: poverty_rate
+        description: "ACS estimate of the percentage of the population for whom poverty status is determined that is below the poverty level."
+        data_tests:
+          - not_null
+
+      - name: uninsured_rate
+        description: "ACS estimate of the percentage of the civilian noninstitutionalized population without health insurance coverage."
+        data_tests:
+          - not_null

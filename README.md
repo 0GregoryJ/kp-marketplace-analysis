@@ -17,27 +17,29 @@
 ## Overview
 
 ## Research Questions
+- What socioeconomic and market characteristics across geographies are associated with Marketplace performance?
+- Which areas currently exhibit these characteristics and outcomes?
+- How are these socioeconomic and market characteristics expected to change over the next five to ten years?
+- What considerations for future market analysis emerge from these findings?
 
 ## Project Scope
 
 ## Data Sources
 ... a table or something detailing the data
 - CMS
-    - California SBE QHP PUFs
+    - California SBE QHP PUFs (https://www.cms.gov/marketplace/resources/data/state-based-public-use-files)
         - Service area
         - Plan attributes
         - Rates
-- Covered California
-    - Active member profiles
-    - Individual product prices
-- ACS
-    - S0101
-    - S1901
-    - B19301
-    - S1201
-    - S2301
-    - S2701
-- BLS LAUS
+- Covered California Active member profiles (https://hbex.coveredca.com/data-research/active-member-profiles/)
+- Census
+    - B19013 (median household income) (https://data.census.gov/table/ACSDT5Y2024.B19013)
+    - S1701 (% above/below poverty rate) (https://data.census.gov/table?q=S1701:+POVERTY+STATUS+IN+THE+PAST+12+MONTHS)
+    - B01003 (population) (https://data.census.gov/table?q=B01003:+TOTAL+POPULATION)
+    - S2701 (coverage status of population) (https://data.census.gov/table?q=S2701:+HEALTH+INSURANCE+COVERAGE+STATUS)
+
+- BLS QCEW (https://www.bls.gov/cew/downloadable-data-files.htm)
+- BLS LAUS (https://www.bls.gov/lau/tables.htm)
 ## Architecture
 
 ## Data Model

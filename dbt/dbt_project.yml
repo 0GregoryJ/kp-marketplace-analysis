@@ -12,3 +12,9 @@ models:
       +materialized: table
       cms:
         +schema: staging
+      bls:
+        +schema: staging
+      covered_ca:
+        +schema: staging
+      census:
+        +schema: staging

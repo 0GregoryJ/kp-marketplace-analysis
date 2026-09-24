@@ -1,0 +1,30 @@
+version: 1.0.0
+
+models:
+  - name: stg_cc_membership_profile
+    description: "1 row per year x county x issuer record from Covered California Active Member Profile data. Renamed source columns, standardized county names, and cast enrollment measures to numeric types."
+    columns:
+      - name: year
+        description: "Coverage year associated with the Covered California membership record."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "California county name, standardized to include the 'County' suffix."
+        data_tests:
+          - not_null
+
+      - name: issuer
+        description: "Health insurance issuer offering Covered California coverage in the county."
+        data_tests:
+          - not_null
+
+      - name: enrollees_total
+        description: "Number of active Covered California enrollees for the issuer in the county and year."
+        data_tests:
+          - not_null
+
+      - name: enrollees_pct
+        description: "Issuer share of Covered California enrollment in the county, expressed as a percentage."
+        data_tests:
+          - not_null
