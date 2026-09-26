@@ -43,16 +43,8 @@ renamed as (
         trim("PLAN EFFECTIVE DATE") as plan_effective_date,
         trim("PLAN EXPIRATION DATE") as plan_expiration_date,
 
-        case
-            when lower(trim("IS HSA ELIGIBLE")) in ('yes', 'true') then true
-            when lower(trim("IS HSA ELIGIBLE")) in ('no', 'false') then false
-            else null
-        end as is_hsa_eligible,
-
         trim("CSR VARIATION TYPE") as csr_variation_type,
-        trim("ISSUER ACTUARIAL VALUE") as issuer_actuarial_value,
-
-        trim("PLAN DESIGN TYPE") as plan_design_type
+        trim("ISSUER ACTUARIAL VALUE") as issuer_actuarial_value
     from source
 )
 

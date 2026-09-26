@@ -116,17 +116,12 @@ models:
       - name: plan_expiration_date
         description: "Expiration date of the plan as reported by CMS."
 
-      - name: is_hsa_eligible
-        description: "Boolean indicating whether the plan is eligible for use with a Health Savings Account."
-
       - name: csr_variation_type
         description: "Cost-sharing reduction variation type associated with the plan."
 
       - name: issuer_actuarial_value
         description: "Issuer-reported actuarial value for the plan."
 
-      - name: plan_design_type
-        description: "CMS plan design classification."
       
   - name: stg_cms_rates
     description: "1 row per plan x rating area x age x tobacco rate record. Renamed raw columns and casted selected premium fields to numeric types for downstream premium analysis."

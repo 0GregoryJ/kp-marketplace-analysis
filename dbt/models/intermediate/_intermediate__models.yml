@@ -1,0 +1,103 @@
+version: 1.0.0
+
+models:
+  - name: int_cms_plan_cty_yr
+    description: "1 row per plan x county x year. Joins Individual, non-dental, on-exchange CMS plan attributes to county-level service area records, standardizes county geography using the dim_county seed, maps counties to ACA rating areas, attaches a standardized age-40 individual premium using the earliest available rate period in the plan year, and derives Kaiser Permanente identification for downstream market analysis."
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - plan_id
+            - county_fips
+            - year
+
+    columns:
+      - name: plan_county_year_sk
+        description: "Surrogate key for the plan x county x year grain."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: year
+        description: "Marketplace business year."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation from the canonical county dimension."
+        data_tests:
+          - not_null
+
+      - name: state_fips
+        description: "Two-digit state FIPS code from the canonical county dimension."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "Canonical county name from the county dimension."
+        data_tests:
+          - not_null
+
+      - name: county_fips
+        description: "Five-digit county FIPS code from the canonical county dimension."
+        data_tests:
+          - not_null
+
+      - name: issuer_id
+        description: "CMS identifier for the insurance issuer."
+        data_tests:
+          - not_null
+
+      - name: issuer_name
+        description: "Name of the insurance issuer."
+
+      - name: plan_id
+        description: "CMS plan variant identifier from the Plan Attributes PUF."
+        data_tests:
+          - not_null
+
+      - name: standard_component_id
+        description: "CMS standard component identifier. Used to match Plan Attributes records to Rate PUF plan IDs."
+
+      - name: plan_marketing_name
+        description: "Consumer-facing marketing name of the plan."
+
+      - name: hios_product_id
+        description: "HIOS product identifier associated with the plan."
+
+      - name: service_area_id
+        description: "Identifier for the issuer-defined service area associated with the plan."
+        data_tests:
+          - not_null
+
+      - name: service_area_name
+        description: "Name of the issuer-defined service area."
+
+      - name: network_id
+        description: "Identifier for the provider network associated with the plan."
+
+      - name: plan_status
+        description: "Source value indicating whether the plan is new or existing."
+
+      - name: plan_type
+        description: "Plan type, such as HMO, PPO, or EPO."
+
+      - name: metal_level
+        description: "ACA metal level associated with the plan."
+
+      - name: csr_variation_type
+        description: "Cost-sharing reduction variation type associated with the plan."
+
+      - name: issuer_actuarial_value
+        description: "Issuer-reported actuarial value associated with the plan."
+
+      - name: rating_area_id
+        description: "ACA geographic rating area associated with the county. Null for Los Angeles County because the county spans multiple rating areas and cannot be uniquely mapped at county grain."
+
+      - name: individual_rate_age_40
+        description: "Monthly individual premium for an age-40 enrollee with tobacco status reported as No Preference. Uses the earliest available rate period within the plan year for each issuer x standard component x rating area. Null where the county has no unique rating area or no matching rate is available."
+
+      - name: is_kp
+        description: "Boolean indicating whether the issuer is identified as Kaiser Permanente."
+        data_tests:
+          - not_null

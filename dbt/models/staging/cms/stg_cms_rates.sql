@@ -24,6 +24,9 @@ renamed as (
         trim("TOBACCO") as tobacco,
         trim("AGE") as age,
 
+        try_cast("RATE EFFECTIVE DATE" as date) as rate_effective_date,
+        try_cast("RATE EXPIRATION" as date) as rate_expiration_date,
+
         try_cast("INDIVIDUAL RATE" as decimal(12, 2)) as individual_rate,
         try_cast("INDIVIDUAL TOBACCO RATE" as decimal(12, 2)) as individual_tobacco_rate,
 

@@ -12,8 +12,11 @@ with source as (
 renamed as (
     select
         "BUSINESS YEAR"::integer as year,
-        trim("COUNTY NAME") as county_name,
-        concat('060',trim(COUNTY)) as county_fips,
+        concat(trim("COUNTY NAME"), ' ', 'County') as county_name,
+        case
+            when year >= 2019 then trim(split_part(COUNTY, '-', 2))
+            else concat('060',trim(COUNTY))
+        end as county_fips,
         trim("STATE CODE") as state_code,
         '06' as state_fips,
 

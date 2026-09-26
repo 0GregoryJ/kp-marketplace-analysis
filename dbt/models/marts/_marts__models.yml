@@ -1,0 +1,234 @@
+version: 1.0.0
+
+models:
+  - name: mart_cty_yr_market
+    description: "1 row per California county x year containing Individual Marketplace competition, plan availability, standardized Silver premium, carrier entry and exit, and Kaiser Permanente presence metrics."
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - county_fips
+            - year
+
+    columns:
+      - name: county_year_sk
+        description: "Surrogate key for the county x year grain."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: year
+        description: "Marketplace business year."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: state_fips
+        description: "Two-digit state FIPS code."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "Canonical county name."
+        data_tests:
+          - not_null
+
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+
+      - name: carrier_count
+        description: "Number of distinct Individual Marketplace issuers offering at least one qualifying on-exchange medical plan in the county-year."
+        data_tests:
+          - not_null
+
+      - name: plan_count
+        description: "Number of distinct standard-component Individual Marketplace medical plans offered in the county-year."
+        data_tests:
+          - not_null
+
+      - name: silver_plan_count
+        description: "Number of distinct Silver standard-component plans offered in the county-year."
+        data_tests:
+          - not_null
+
+      - name: gold_plan_count
+        description: "Number of distinct Gold standard-component plans offered in the county-year."
+        data_tests:
+          - not_null
+
+      - name: lowest_cost_silver_premium
+        description: "Lowest monthly Silver premium among distinct standard-component plans for an age-40 enrollee using the earliest available rate period in the plan year. Null for Los Angeles County because it spans multiple rating areas."
+
+      - name: benchmark_silver_premium
+        description: "Second-lowest monthly Silver premium among distinct standard-component plans for an age-40 enrollee using the earliest available rate period in the plan year. Null for Los Angeles County because it spans multiple rating areas."
+
+      - name: carrier_entry_count
+        description: "Number of issuers present in the county-year that were not present in the same county in the prior year. Null for the first year in the analysis period."
+
+      - name: carrier_exit_count
+        description: "Number of issuers present in the county in the prior year but absent in the current year. Null for the first year in the analysis period."
+
+      - name: kp_offered
+        description: "Boolean indicating whether Kaiser Permanente offered at least one qualifying Individual Marketplace medical plan in the county-year."
+        data_tests:
+          - not_null
+
+      - name: kp_plan_count
+        description: "Number of distinct Kaiser Permanente standard-component plans offered in the county-year."
+        data_tests:
+          - not_null
+
+  - name: mart_cty_yr_performance
+    description: "1 row per California county x year containing Kaiser Permanente enrollment performance and overall Covered California marketplace enrollment outcomes."
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - county_fips
+            - year
+
+    columns:
+      - name: county_year_sk
+        description: "Surrogate key for the county x year grain."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: year
+        description: "Marketplace year."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: state_fips
+        description: "Two-digit state FIPS code."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "Canonical county name."
+        data_tests:
+          - not_null
+
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+
+      - name: kp_enrollment
+        description: "Total Kaiser Permanente individual marketplace enrollment in the county-year."
+        data_tests:
+          - not_null
+
+      - name: total_marketplace_enrollment
+        description: "Total individual marketplace enrollment across all issuers in the county-year."
+        data_tests:
+          - not_null
+
+      - name: kp_market_share
+        description: "Kaiser Permanente share of total marketplace enrollment in the county-year, expressed as a decimal between 0 and 1."
+
+      - name: kp_enrollment_growth_yoy_pct
+        description: "Year-over-year growth in Kaiser Permanente enrollment, expressed as a decimal. Null when no valid prior-year Kaiser enrollment exists."
+
+      - name: marketplace_enrollment_growth_yoy_pct
+        description: "Year-over-year growth in total marketplace enrollment, expressed as a decimal. Null when no valid prior-year marketplace enrollment exists."
+
+      - name: kp_market_share_change_yoy_pp
+        description: "Year-over-year change in Kaiser Permanente market share. Expressed as the difference between decimal market-share values; for example, 0.03 represents a 3 percentage-point increase."
+
+  - name: mart_cty_yr_socioeconomic
+    description: "1 row per California county x year containing demographic, income, insurance coverage, labor-force, and business-employment characteristics from Census ACS and BLS."
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - county_fips
+            - year
+
+    columns:
+      - name: county_year_sk
+        description: "Surrogate key for the county x year grain."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: year
+        description: "Calendar year."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: state_fips
+        description: "Two-digit state FIPS code."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "Canonical county name."
+        data_tests:
+          - not_null
+
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+
+      - name: population_total
+        description: "Total county population from Census ACS."
+
+      - name: population_growth_yoy_pct
+        description: "Year-over-year population growth, expressed as a decimal."
+
+      - name: median_household_income
+        description: "Median household income from Census ACS."
+
+      - name: poverty_rate
+        description: "Share of the population below the poverty threshold, as reported by Census ACS."
+
+      - name: uninsured_rate
+        description: "Share of the population without health insurance coverage, as reported by Census ACS."
+
+      - name: labor_force_total
+        description: "Total civilian labor force from BLS LAUS."
+
+      - name: employed_total
+        description: "Total employed persons from BLS LAUS."
+
+      - name: unemployed_total
+        description: "Total unemployed persons from BLS LAUS."
+
+      - name: unemployment_rate
+        description: "County unemployment rate from BLS LAUS."
+
+      - name: establishment_count
+        description: "Number of covered establishments from BLS QCEW."
+
+      - name: employment_total
+        description: "Average annual employment from BLS QCEW."
+
+      - name: avg_annual_pay
+        description: "Average annual pay from BLS QCEW."
+
+      - name: establishment_yoy_pct_change
+        description: "Year-over-year percentage change in establishment count from BLS QCEW."
+
+      - name: employment_yoy_pct_change
+        description: "Year-over-year percentage change in QCEW employment."
+
+      - name: avg_annual_pay_yoy_pct_change
+        description: "Year-over-year percentage change in average annual pay from BLS QCEW."

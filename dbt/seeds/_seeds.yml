@@ -1,0 +1,15 @@
+version: 2
+
+seeds:
+  - name: dim_county_rating_area
+    description: "Canonical mapping of California counties to ACA geographic rating areas. Los Angeles County has a null rating area because it spans Rating Areas 15 and 16 and cannot be mapped uniquely at county grain."
+
+    columns:
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: rating_area_id
+        description: "CMS geographic rating area identifier. Null for Los Angeles County."
