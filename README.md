@@ -61,58 +61,9 @@ The analytical data pipeline is implemented with DuckDB and dbt. Source-specific
 Raw public-use files are not committed to the repository.
 
 ## Architecture
-
-```mermaid
-flowchart TB
-    CMS_PA[CMS Plan Attributes]
-    CMS_SA[CMS Service Areas]
-    CMS_R[CMS Rates]
-    CC[Covered California Membership]
-    ACS[Census ACS]
-    LAUS[BLS LAUS]
-    QCEW[BLS QCEW]
-
-    STG_PA[stg_cms_plan_attributes]
-    STG_SA[stg_cms_service_areas]
-    STG_R[stg_cms_rates]
-    STG_CC[stg_cc_membership_profile]
-    STG_ACS[stg_census_acs]
-    STG_LAUS[stg_bls_laus]
-    STG_QCEW[stg_bls_qcew]
-
-    DIM_C[dim_county]
-    DIM_R[dim_county_rating_area]
-
-    INT[int_cms_plan_county_year]
-
-    MARKET[mart_cty_yr_market]
-    PERF[mart_cty_yr_performance]
-    SOCIO[mart_cty_yr_socioeconomic]
-
-    CMS_PA --> STG_PA
-    CMS_SA --> STG_SA
-    CMS_R --> STG_R
-    CC --> STG_CC
-    ACS --> STG_ACS
-    LAUS --> STG_LAUS
-    QCEW --> STG_QCEW
-
-    STG_PA --> INT
-    STG_SA --> INT
-    STG_R --> INT
-    DIM_C --> INT
-    DIM_R --> INT
-
-    INT --> MARKET
-
-    STG_CC --> PERF
-    DIM_C --> PERF
-
-    STG_ACS --> SOCIO
-    STG_LAUS --> SOCIO
-    STG_QCEW --> SOCIO
-    DIM_C --> SOCIO
-```
+<p align="center">
+  <img src="docs/assets/architecture.png" alt="dbt Lineage Graph" width="100%">
+</p>
 
 The project uses a local DuckDB database as the analytical warehouse and dbt for SQL transformations, testing, lineage, and documentation.
 
