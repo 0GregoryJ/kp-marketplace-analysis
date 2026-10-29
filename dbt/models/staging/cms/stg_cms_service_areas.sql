@@ -15,7 +15,7 @@ renamed as (
         concat(trim("COUNTY NAME"), ' ', 'County') as county_name,
         case
             when year >= 2019 then trim(split_part(COUNTY, '-', 2))
-            else concat('060',trim(COUNTY))
+            else '06' || lpad(trim(COUNTY), 3, '0')
         end as county_fips,
         trim("STATE CODE") as state_code,
         '06' as state_fips,

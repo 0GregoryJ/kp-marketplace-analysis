@@ -7,8 +7,7 @@
   <img src="https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=sqlite&logoColor=white" alt="SQL">
   <img src="https://img.shields.io/badge/dbt-FF694B?style=flat-square&logo=dbt&logoColor=white" alt="dbt">
   <img src="https://img.shields.io/badge/DuckDB-FFF000?style=flat-square&logo=duckdb&logoColor=black" alt="DuckDB">
-  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white" alt="scikit-learn">
-  <img src="https://img.shields.io/badge/Tableau-E97627?style=flat-square&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHJlY3QgeD0iMTAiIHk9IjEuNSIgd2lkdGg9IjQiIGhlaWdodD0iNiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHg9IjEwIiB5PSIxNi41IiB3aWR0aD0iNCIgaGVpZ2h0PSI2IiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iMS41IiB5PSIxMCIgd2lkdGg9IjYiIGhlaWdodD0iNCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHg9IjE2LjUiIHk9IjEwIiB3aWR0aD0iNiIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+PHJlY3QgeD0iOSIgeT0iOSIgd2lkdGg9IjYiIGhlaWdodD0iNiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==" alt="Tableau">
+  <img src="https://img.shields.io/badge/statsmodels-4051B5?style=flat-square" alt="statsmodels">
   <img src="https://img.shields.io/badge/Presentation-FBBC04?style=flat-square&logo=googleslides&logoColor=white" alt="Presentation">
   <img src="https://img.shields.io/badge/Exec%20Summary-1A1428?style=flat-square&logo=markdown&logoColor=white" alt="Exec Summary">
   <img src="https://img.shields.io/badge/CMS-Public%20Use%20Files-0B3D91?style=flat-square" alt="CMS Public Use Files">
@@ -16,11 +15,11 @@
 
 ## Overview
 
-[PROJECT OVERVIEW — TO BE WRITTEN]
-
 This project analyzes California's individual ACA Marketplace at the county-year level using public data from CMS, Covered California, the U.S. Census Bureau, and the U.S. Bureau of Labor Statistics.
 
-The analytical data pipeline is implemented with DuckDB and dbt. Source-specific staging models feed a plan-county intermediate model and three county-year analytical marts covering Marketplace conditions, Kaiser Permanente performance, and socioeconomic characteristics.
+First, a profile for Kaiser Permanente's performance in the Marketplace is built from the socioeconomic and market conditions of the counties where it is offered. Then counties are compared against that profile to find where Kaiser's share sits well above or below what their conditions imply. The profile is tested across years, regions, and individual counties, and recent trends are extended five to ten years to see whether the county ranking shifts. The result is a short list of counties and questions for future analysis.
+
+Yearly CSVs are ingested into a DuckDB warehouse and transformed with dbt. The output is three analytical tables that combine into a county-year panel for analysis with statsmodels in 5 Python notebooks.
 
 ## Research Questions
 
@@ -39,9 +38,8 @@ The analytical data pipeline is implemented with DuckDB and dbt. Source-specific
 - **Performance data:** Covered California Active Member Profiles
 - **Socioeconomic data:** Census ACS and BLS LAUS/QCEW
 - **Historical analysis:** annual county-level observations
+- **Performance measure:** Kaiser Permanente's share of Covered California enrollment in counties where it is offered
 - **Forecasting horizon:** five to ten years
-
-[ADDITIONAL SCOPE / FRAMING — TO BE WRITTEN]
 
 ## Data Sources
 
@@ -57,6 +55,7 @@ The analytical data pipeline is implemented with DuckDB and dbt. Source-specific
 | U.S. Census Bureau | [ACS S2701 — Health Insurance Coverage](https://data.census.gov/table?q=S2701:+HEALTH+INSURANCE+COVERAGE+STATUS) | Uninsured rate |
 | BLS | [Local Area Unemployment Statistics (LAUS)](https://www.bls.gov/lau/tables.htm) | Labor force, employment, unemployment, unemployment rate |
 | BLS | [Quarterly Census of Employment and Wages (QCEW)](https://www.bls.gov/cew/downloadable-data-files.htm) | Establishments, employment, average annual pay, annual changes |
+| U.S. Census Bureau | [2023 Cartographic Boundary File — Counties, 1:5M](https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_county_5m.zip) | County outlines for the notebook 5 map |
 
 Raw public-use files are not committed to the repository.
 
@@ -94,7 +93,7 @@ Los Angeles County is not assigned a single rating area in `dim_county_rating_ar
 
 ### Intermediate
 
-#### `int_cms_plan_county_year`
+#### `int_cms_plan_cty_yr`
 
 **Grain:** one row per plan × county × year.
 
@@ -185,15 +184,61 @@ dbt tests are used to validate expected analytical grains and required identifie
 
 ### Exploratory and Statistical Analysis
 
-[TO BE WRITTEN]
+The unit is one row per county where Kaiser is offered, averaged over 2016–2024. The outcome is Kaiser market share. Los Angeles has no county premium and Monterey opens in 2025, so most models use 31 counties.
 
-### Forecasting / Machine Learning
+| Notebook | Question | Method |
+|---|---|---|
+| `01_eda` | Where does Kaiser perform, and what lines up with share? | Rankings, trends, Spearman correlations |
+| `02_relationship_analysis` | Which associations hold together? | Nested OLS with HC1 standard errors |
+| `03_forecasting` | Does the share ranking move if recent paces continue? | Relative 2019–2024 slopes run through Model 2 |
+| `04_model_stability` | Does the fit depend on terms, years, regions, or single counties? | Refits of a four-term profile, including a Northern/Southern California split |
+| `05_profile_departures` | Which counties depart from the profile, and does share follow a county's own changes? | Residuals, county and year fixed effects, opening paths, nearest-neighbor screen |
 
-[TO BE WRITTEN]
+Model specifications, sample rules, and full results are in [`docs/analysis.md`](docs/analysis.md).
+
+### Forecasting
+
+Notebook 3 continues each county's 2019–2024 relative pace for the uninsured rate, population, and benchmark premium five and ten years forward. It shows how the ranking moves; it is not an enrollment forecast.
 
 ### Visualization
 
-[TO BE WRITTEN]
+Notebooks build their figures with matplotlib and save copies to `outputs/figures/`. The notebook 5 county map reads the Census boundary file with `pyshp`.
+
+
+## Results
+
+Details and figure references are in [`docs/analysis.md`](docs/analysis.md).
+
+- **Profile.** Across 31 offered counties, Kaiser share is higher in larger counties, where uninsured and unemployment rates are lower, and where the benchmark Silver premium is higher (four terms, adjusted R² 0.60). The benchmark result reads as Kaiser's price position, since Kaiser's gap to the benchmark moves almost one-for-one against it (correlation −0.88).
+- **Region.** Southern California counties sit about 19 points below Northern California counties with the same conditions. Within Northern California, population (+) and unemployment (−) hold (adjusted R² 0.71).
+- **Stability.** Signs hold in every single year and with any one county dropped. They shift when a whole region is dropped.
+- **Within a county.** Only 3% of share variation happens inside a county over time. Of the four terms, only the benchmark premium tracks share there.
+- **Departures.** Sutter, Orange, San Francisco, Santa Clara, and Tulare sit well below their profile, with or without region. Orange is the largest gap in members, at roughly 30,000–41,000 at 2025 market size. Napa, Solano, and San Joaquin sit well above.
+- **Outlook.** Continuing 2019–2024 relative paces moves the median county about one point over five years, and the high- and low-share groups do not trade places. Monterey opened at 29%, against Santa Cruz's 41% in its first year (2017) and about 65% since.
+
+## Limitations
+
+Documented data/modeling constraints include:
+
+- Los Angeles County spans multiple ACA rating areas, so a single county-level premium is not assigned.
+- CMS source schemas and field completeness vary across file vintages.
+- CMS Rate PUF `qhp_non_qhp_type_id` is not consistently populated across years; on-exchange status is therefore established through the filtered Plan Attributes records rather than requiring the corresponding Rate PUF field.
+- Premium measures use a standardized age-40 individual rate with tobacco status reported as `No Preference`.
+- Where multiple rate periods exist within a plan year, the earliest available rate period is used.
+- Socioeconomic source availability varies by year, so coverage of the socioeconomic mart is determined by available source-year combinations.
+
+- Models compare 31 counties in one state, so intervals are wide and results describe this footprint.
+- "Offered" includes 23 counties where Kaiser's service area covers only some ZIP codes, while share uses all Covered California members in the county.
+- Kaiser facility locations and provider networks are not in the data.
+- The scenario projection covers socioeconomic and premium drift only. It leaves out subsidy policy, footprint changes, and Kaiser pricing.
+
+## Future Work
+
+- Relate share to distance from Kaiser medical centers and to ZIP-level service areas.
+- Explain the shortfall counties, starting with Orange, and study the outperformers.
+- Treat openings and service-area changes as events to test whether any condition acts as a lever.
+- Fit Northern and Southern California separately as more years accumulate.
+- Track Monterey's 2026–2027 share against the Santa Cruz path.
 
 ## Repository Structure
 
@@ -218,38 +263,38 @@ kp-marketplace-analysis/
 │   │   │   └── cms/
 │   │   │
 │   │   ├── intermediate/
-│   │   │   └── int_cms_plan_county_year.sql
+│   │   │   └── int_cms_plan_cty_yr.sql
 │   │   │
 │   │   └── marts/
 │   │       ├── mart_cty_yr_market.sql
 │   │       ├── mart_cty_yr_performance.sql
 │   │       └── mart_cty_yr_socioeconomic.sql
 │   │
-│   ├── seeds/
-│   │   ├── dim_county.csv
-│   │   └── dim_county_rating_area.csv
-│   │
-│   └── tests/
+│   └── seeds/
+│       ├── dim_county.csv
+│       └── dim_county_rating_area.csv
 │
-│
-├── notebooks/
+├── notebooks/                       # run from this folder
 │   ├── 01_eda.ipynb
 │   ├── 02_relationship_analysis.ipynb
-│   └── 03_forecasting.ipynb
-│
-├── src/
-│   └── modeling/
+│   ├── 03_forecasting.ipynb
+│   ├── 04_model_stability.ipynb
+│   └── 05_profile_departures.ipynb
 │
 ├── outputs/
-│   ├── figures/
-│   └── tables/
+│   ├── figures/                     # PNG copies of notebook figures
+│   └── notebooks/                   # HTML exports
 │
-├── reports/
+├── reports/                         # phase reports (PDF)
 │
 └── docs/
-    ├── assets/
-        └── banner.png
+    ├── analysis.md                  # model specs and full results
+    └── assets/
 ```
+
+## Disclaimer
+
+This is an SFSU BUS 895 student capstone prepared for a Kaiser Permanente client. Findings are for academic discussion. They do not represent Kaiser Permanente.
 
 ## Setup
 
@@ -275,7 +320,7 @@ pip install -r requirements.txt
 
 ### 4. Download source data
 
-Raw source files are excluded from version control.
+Raw source files are excluded from version control. Place each source under `data/raw/` in its folder (`bls/`, `census/`, `cms/`, `covered_ca/`). The county boundary zip goes in `data/raw/census/boundaries/` unextracted.
 
 ### 5. Configure dbt
 
@@ -321,27 +366,6 @@ mart_cty_yr_performance
 mart_cty_yr_socioeconomic
 ```
 
-## Results
+### 9. Run the notebooks
 
-[RESULTS — TO BE WRITTEN AFTER ANALYSIS]
-
-## Limitations
-
-Documented data/modeling constraints include:
-
-- Los Angeles County spans multiple ACA rating areas, so a single county-level premium is not assigned.
-- CMS source schemas and field completeness vary across file vintages.
-- CMS Rate PUF `qhp_non_qhp_type_id` is not consistently populated across years; on-exchange status is therefore established through the filtered Plan Attributes records rather than requiring the corresponding Rate PUF field.
-- Premium measures use a standardized age-40 individual rate with tobacco status reported as `No Preference`.
-- Where multiple rate periods exist within a plan year, the earliest available rate period is used.
-- Socioeconomic source availability varies by year, so coverage of the socioeconomic mart is determined by available source-year combinations.
-
-[ADDITIONAL ANALYTICAL / FORECASTING LIMITATIONS — TO BE WRITTEN]
-
-## Future Work
-
-[TO BE WRITTEN]
-
-## Disclaimer
-
-This is an SFSU BUS 895 student capstone prepared for a Kaiser Permanente client. Findings are for academic discussion. They do not represent Kaiser Permanente.
+Run notebooks from `notebooks/`. They open `../data/processed/analysis.duckdb` read-only, and the staging views read `../data/raw`.

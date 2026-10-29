@@ -13,6 +13,21 @@ with service_areas as (
 
     where market_coverage = 'Individual'
       and is_dental_plan_only = false
+      and coalesce(covers_entire_state, false) = false
+
+    union
+
+    select distinct
+        sa.year,
+        dc.county_fips,
+        sa.issuer_id,
+        sa.service_area_id,
+        sa.service_area_name
+    from {{ ref("stg_cms_service_areas") }} sa
+    cross join {{ ref("dim_county") }} dc
+    where sa.market_coverage = 'Individual'
+      and sa.is_dental_plan_only = false
+      and sa.covers_entire_state
 ),
 
 plan_attributes as (
