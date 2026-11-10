@@ -17,6 +17,8 @@ models:
         +schema: staging
       census:
         +schema: staging
+      forecasts:
+        +schema: staging
 
     intermediate:
       +materialized: table
@@ -41,3 +43,13 @@ seeds:
       +column_types:
         county_fips: varchar
         rating_area_id: varchar
+
+    forecast_cty_inputs:
+      +column_types:
+        county_fips: varchar
+        forecast_year: integer
+        scenario: varchar
+        measure: varchar
+        value: double
+        source: varchar
+        notes: varchar

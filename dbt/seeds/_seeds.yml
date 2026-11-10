@@ -13,3 +13,52 @@ seeds:
 
       - name: rating_area_id
         description: "CMS geographic rating area identifier. Null for Los Angeles County."
+
+  - name: forecast_cty_inputs
+    description: >
+      County-level 2027 forecast inputs for notebook 7 share scoring.
+      Grain is county_fips × forecast_year × scenario × measure.
+      Population from DOF P-2A; unemployment from DOF/Caltrans long-run county forecasts;
+      benchmark Silver premium and carrier count from Covered California 2027 QHP rates and
+      plans-by-ZIP; uninsured/income/poverty held at ACS 2024. Do not append these into
+      historical mart_cty_yr_* tables.
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - county_fips
+            - forecast_year
+            - scenario
+            - measure
+
+    columns:
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+
+      - name: forecast_year
+        description: "Year the forecast value applies to."
+        data_tests:
+          - not_null
+
+      - name: scenario
+        description: "Scenario name (base, higher_uninsured, softer_labor, premium_up, or custom)."
+        data_tests:
+          - not_null
+
+      - name: measure
+        description: "Covariate name used by the notebooks (population_total, uninsured_rate, etc.)."
+        data_tests:
+          - not_null
+
+      - name: value
+        description: "Numeric value. Uninsured, unemployment, and poverty rates are percentage points (e.g. 4.6 = 4.6%); premiums are monthly dollars."
+        data_tests:
+          - not_null
+
+      - name: source
+        description: "Provenance label for the loaded value."
+
+      - name: notes
+        description: "Optional note describing the assumption or replacement status."

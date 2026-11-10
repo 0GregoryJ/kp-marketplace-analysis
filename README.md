@@ -19,7 +19,7 @@ This project analyzes California's individual ACA Marketplace at the county-year
 
 First, a profile for Kaiser Permanente's performance in the Marketplace is built from the socioeconomic and market conditions of the counties where it is offered. Then counties are compared against that profile to find where Kaiser's share sits well above or below what their conditions imply. The profile is tested across years, regions, and individual counties, and recent trends are extended five to ten years to see whether the county ranking shifts. The result is a short list of counties and questions for future analysis.
 
-Yearly CSVs are ingested into a DuckDB warehouse and transformed with dbt. The output is three analytical tables that combine into a county-year panel for analysis with statsmodels in 5 Python notebooks.
+Yearly CSVs are ingested into a DuckDB warehouse and transformed with dbt. Historical analysis uses three county-year marts as a panel in statsmodels notebooks; a separate forecast-input mart feeds the 2027 share screen.
 
 ## Research Questions
 
@@ -49,6 +49,9 @@ Yearly CSVs are ingested into a DuckDB warehouse and transformed with dbt. The o
 | CMS | [California SBE QHP PUF — Plan Attributes](https://www.cms.gov/marketplace/resources/data/state-based-public-use-files) | Issuers, plans, metal levels, plan types, service areas, network IDs |
 | CMS | [California SBE QHP PUF — Rates](https://www.cms.gov/marketplace/resources/data/state-based-public-use-files) | Rating areas and standardized individual premiums |
 | Covered California | [Active Member Profiles](https://hbex.coveredca.com/data-research/active-member-profiles/) | Issuer enrollment by county, total Marketplace enrollment, Kaiser Permanente enrollment and market share |
+| Covered California | [Data & Research — 2027 QHP Rates and Plans by ZIP](https://www.hbex.ca.gov/data-research/) | 2027 age-40 Silver benchmarks and issuer presence for the forecast seed |
+| CA Department of Finance | [P-2 County Population Projections](https://dof.ca.gov/forecasting/demographics/projections/) | 2027 county population (Report P-2A, Baseline 2024 / Vintage 2026) |
+| CA Department of Finance | [Long-Run County Level Forecasts](https://dof.ca.gov/forecasting/economics/economic-forecasts-u-s-california-counties/long-run-county-level-forecasts/) | 2027 county unemployment rates (DOF / Caltrans, Jan 2026) |
 | U.S. Census Bureau | [ACS B01003 — Total Population](https://data.census.gov/table?q=B01003:+TOTAL+POPULATION) | County population |
 | U.S. Census Bureau | [ACS B19013 — Median Household Income](https://data.census.gov/table/ACSDT5Y2024.B19013) | Median household income |
 | U.S. Census Bureau | [ACS S1701 — Poverty Status](https://data.census.gov/table?q=S1701:+POVERTY+STATUS+IN+THE+PAST+12+MONTHS) | Poverty rate |
@@ -168,6 +171,22 @@ Includes:
 - average annual pay;
 - year-over-year establishment, employment, and pay changes.
 
+#### `mart_cty_forecast_inputs`
+
+**Grain:** one row per county × forecast year × scenario × measure.
+
+Holds forward covariates for notebook 7. Kept separate from the historical county-year marts. Loaded from the `forecast_cty_inputs` seed:
+
+| Measure | Source in the seed |
+|---|---|
+| `population_total` | DOF P-2A July 1 2027 |
+| `unemployment_rate` | DOF / Caltrans long-run county forecast, 2027 |
+| `benchmark_silver_premium` | Covered CA 2027 QHP rates (second-lowest Silver, age 40, issuers present in county) |
+| `carrier_count` | Covered CA 2027 plans-by-ZIP |
+| `uninsured_rate`, `median_household_income`, `poverty_rate` | ACS 2024 hold (no official county 2027 uninsured forecast) |
+
+Scenarios: `base`, `higher_uninsured` (+1 pp), `softer_labor` (+1 pp unemployment), `premium_up` (+$50 benchmark).
+
 ## Methodology
 
 ### Data Engineering
@@ -193,12 +212,17 @@ The unit is one row per county where Kaiser is offered, averaged over 2016–202
 | `03_forecasting` | Does the share ranking move if recent paces continue? | Relative 2019–2024 slopes run through Model 2 |
 | `04_model_stability` | Does the fit depend on terms, years, regions, or single counties? | Refits of a four-term profile, including a Northern/Southern California split |
 | `05_profile_departures` | Which counties depart from the profile, and does share follow a county's own changes? | Residuals, county and year fixed effects, opening paths, nearest-neighbor screen |
+| `06_where_model_works` | Where is absolute error low or high, and what does that say about the tool? | Absolute residuals sliced by conditions, footprint, and region |
+| `07_forecast_2027` | What share does the profile imply for 2027 conditions? | Frozen four-term score on forecast inputs plus sticky departures |
 
 Model specifications, sample rules, and full results are in [`docs/analysis.md`](docs/analysis.md).
 
 ### Forecasting
 
-Notebook 3 continues each county's 2019–2024 relative pace for the uninsured rate, population, and benchmark premium five and ten years forward. It shows how the ranking moves; it is not an enrollment forecast.
+Two forecast products answer different questions:
+
+- **Notebook 3** continues each county's 2019–2024 relative pace for the uninsured rate, population, and benchmark premium five and ten years forward. It shows how the **ranking** moves; it is not a 2027 share-level forecast.
+- **Notebook 7** applies the frozen four-term profile to 2027 covariate inputs in `mart_cty_forecast_inputs`, then adds each county's historical departure. That is a **screening forecast of share**, with ±1 residual-SE bands and input scenarios. The seed uses DOF 2027 population and unemployment, Covered California 2027 premiums and carrier counts, and ACS 2024 holds for uninsured / income / poverty.
 
 ### Visualization
 
@@ -207,14 +231,16 @@ Notebooks build their figures with matplotlib and save copies to `outputs/figure
 
 ## Results
 
-Details and figure references are in [`docs/analysis.md`](docs/analysis.md).
+Details and figure references are in [`docs/analysis.md`](docs/analysis.md). A presenter-oriented write-up of notebooks 6–7 is in [`docs/briefing_model_fit_and_2027_forecast.md`](docs/briefing_model_fit_and_2027_forecast.md).
 
 - **Profile.** Across 31 offered counties, Kaiser share is higher in larger counties, where uninsured and unemployment rates are lower, and where the benchmark Silver premium is higher (four terms, adjusted R² 0.60). The benchmark result reads as Kaiser's price position, since Kaiser's gap to the benchmark moves almost one-for-one against it (correlation −0.88).
 - **Region.** Southern California counties sit about 19 points below Northern California counties with the same conditions. Within Northern California, population (+) and unemployment (−) hold (adjusted R² 0.71).
 - **Stability.** Signs hold in every single year and with any one county dropped. They shift when a whole region is dropped.
 - **Within a county.** Only 3% of share variation happens inside a county over time. Of the four terms, only the benchmark premium tracks share there.
 - **Departures.** Sutter, Orange, San Francisco, Santa Clara, and Tulare sit well below their profile, with or without region. Orange is the largest gap in members, at roughly 30,000–41,000 at 2025 market size. Napa, Solano, and San Joaquin sit well above.
-- **Outlook.** Continuing 2019–2024 relative paces moves the median county about one point over five years, and the high- and low-share groups do not trade places. Monterey opened at 29%, against Santa Cruz's 41% in its first year (2017) and about 65% since.
+- **Where the tool works.** Absolute residual error is not sorted by income, poverty, or the profile terms themselves. High `|error|` concentrates in the same shortfall and outperformer counties. The socioeconomic / market model is best used as a between-county **screening score** with a confidence tag, not as a within-county lever.
+- **Outlook (ranking).** Continuing 2019–2024 relative paces moves the median county about one point over five years, and the high- and low-share groups do not trade places. Monterey opened at 29%, against Santa Cruz's 41% in its first year (2017) and about 65% since.
+- **2027 share screen.** On official 2027 DOF / Covered California inputs, the frozen profile plus sticky departures produces county share scores with ±16 pp model bands; input scenarios span about 13 pp at the median. Higher 2027 Silver benchmarks lift many profile scores (median sticky share ~87%, often clipped at 100% in high-premium Northern counties). Los Angeles is unscored; Monterey is an opening score only.
 
 ## Limitations
 
@@ -230,10 +256,12 @@ Documented data/modeling constraints include:
 - Models compare 31 counties in one state, so intervals are wide and results describe this footprint.
 - "Offered" includes 23 counties where Kaiser's service area covers only some ZIP codes, while share uses all Covered California members in the county.
 - Kaiser facility locations and provider networks are not in the data.
-- The scenario projection covers socioeconomic and premium drift only. It leaves out subsidy policy, footprint changes, and Kaiser pricing.
+- Notebook 3's relative-pace projection covers socioeconomic and premium drift only. It leaves out subsidy policy, footprint changes, and Kaiser pricing.
+- Notebook 7 sticky departures assume Kaiser-specific gaps persist. Shares are clipped to 0–100% for display. County uninsured rates are still ACS 2024 holds. 2027 benchmarks are built from Covered California rating-area rates filtered to issuers present in each county; they are not a full CMS PUF rebuild.
 
 ## Future Work
 
+- Replace ACS 2024 uninsured holds if a credible county 2027 uninsured source appears; optionally rebuild 2027 premiums from a CMS CA SBE Rate PUF when published.
 - Relate share to distance from Kaiser medical centers and to ZIP-level service areas.
 - Explain the shortfall counties, starting with Orange, and study the outperformers.
 - Treat openings and service-area changes as events to test whether any condition acts as a lever.
@@ -260,7 +288,8 @@ kp-marketplace-analysis/
 │   │   │   ├── covered_ca/
 │   │   │   ├── census/
 │   │   │   ├── bls/
-│   │   │   └── cms/
+│   │   │   ├── cms/
+│   │   │   └── forecasts/
 │   │   │
 │   │   ├── intermediate/
 │   │   │   └── int_cms_plan_cty_yr.sql
@@ -268,18 +297,22 @@ kp-marketplace-analysis/
 │   │   └── marts/
 │   │       ├── mart_cty_yr_market.sql
 │   │       ├── mart_cty_yr_performance.sql
-│   │       └── mart_cty_yr_socioeconomic.sql
+│   │       ├── mart_cty_yr_socioeconomic.sql
+│   │       └── mart_cty_forecast_inputs.sql
 │   │
 │   └── seeds/
 │       ├── dim_county.csv
-│       └── dim_county_rating_area.csv
+│       ├── dim_county_rating_area.csv
+│       └── forecast_cty_inputs.csv  # 2027 bridge / official forecast inputs
 │
 ├── notebooks/                       # run from this folder
 │   ├── 01_eda.ipynb
 │   ├── 02_relationship_analysis.ipynb
 │   ├── 03_forecasting.ipynb
 │   ├── 04_model_stability.ipynb
-│   └── 05_profile_departures.ipynb
+│   ├── 05_profile_departures.ipynb
+│   ├── 06_where_model_works.ipynb
+│   └── 07_forecast_2027.ipynb
 │
 ├── outputs/
 │   ├── figures/                     # PNG copies of notebook figures
@@ -289,6 +322,7 @@ kp-marketplace-analysis/
 │
 └── docs/
     ├── analysis.md                  # model specs and full results
+    ├── briefing_model_fit_and_2027_forecast.md
     └── assets/
 ```
 
@@ -364,7 +398,10 @@ The final analytical models are:
 mart_cty_yr_market
 mart_cty_yr_performance
 mart_cty_yr_socioeconomic
+mart_cty_forecast_inputs
 ```
+
+`mart_cty_forecast_inputs` holds county × year × scenario × measure forecast covariates for notebook 7. It is loaded from the `forecast_cty_inputs` seed and is kept separate from the historical year marts.
 
 ### 9. Run the notebooks
 

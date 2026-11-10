@@ -119,3 +119,63 @@ Amador (−19.6), Stanislaus (+19.6), and Madera (+22.4) are flagged on the four
 A resemblance says nothing about provider network or facility access.
 
 Figures: `05_departures_from_profile`, `05_share_and_departure_map`, `05_share_after_opening`.
+
+## 06 — Where the Model Works
+
+Notebook 5 flags large **signed** departures. Notebook 6 asks where absolute residual `|e|` is low or high, and what that means for using the socioeconomic / market profile as a tool.
+
+**Reliability vs direction.** Absolute residual measures how close the four-term score sits to actual share. Signed residual keeps the shortfall / outperformer story. Counties are cut into absolute-error tertiles and into bands at 0.5 and 1.0 residual SE (16.4 pp).
+
+- Median `|error|` is about **12** points.
+- **14** counties sit within 0.5 SE; **11** sit beyond 1 SE.
+- The beyond-1-SE set is essentially the notebook 5 shortfalls and outperformers (including Orange, Sutter, San Francisco, Santa Clara, Napa, Solano, San Joaquin).
+
+**What low- and high-error counties share.** Continuous predictors do **not** strongly sort absolute error (Spearman of `|e|` with population, uninsured, unemployment, and premium is near zero). Mean `|e|` also barely differs between lower and upper halves of each predictor. Absolute error is therefore not “the model fails in poor counties” or “works only in rich counties.” It fails where Kaiser share sits far from what conditions imply — the same counties notebook 5 already named.
+
+Region and footprint still matter for interpretation:
+
+- Southern California is a larger share of the **low**-error tertile than of the high-error tertile: many Southern counties have conditions that imply lower share and hold near that implication. Orange is the clear Southern exception.
+- ZIP-limited vs whole-county footprint does not separate low from high absolute error on its own.
+
+**Tool framing for the Kaiser audience.**
+
+1. The profile is a **between-county screening score**, not a year-to-year lever (only ~3% of share variation is within-county).
+2. Use it where historical `|error|` is low (Higher confidence tag). Treat Lower-confidence counties as needing ops / network review before acting on the score.
+3. Do not read a high fitted share as what Kaiser will achieve without checking signed departure, Northern/Southern context, and footprint.
+
+Figures: `06_abs_error_by_predictor_half`, `06_abs_error_map`.
+
+## 07 — 2027 Share Forecasts
+
+Notebook 3 remains a **relative ranking** scenario. Notebook 7 scores **2027 levels**:
+
+`share_2027 = profile(X_2027) + departure_carry`
+
+- `profile(X_2027)` uses the frozen four-term coefficients on forecast covariates.
+- `departure_carry` is the county’s 2016–2024 mean residual (sticky Kaiser-specific gap). A shrunk-departure companion and a Southern-region companion sit beside the base path.
+- Uncertainty is reported two ways: ±1 residual SE (~16.4 pp) around the sticky path, and a scenario range across bridge stresses.
+
+**Forecast inputs.** Values live in `mart_cty_forecast_inputs` (seed `forecast_cty_inputs` → `stg_forecast_cty_inputs`), separate from historical `mart_cty_yr_*` tables.
+
+| Measure | 2027 source |
+|---|---|
+| `population_total` | CA DOF Report P-2A (Baseline 2024, Vintage 2026), July 1 2027 |
+| `unemployment_rate` | CA DOF / Caltrans long-run county economic forecasts (Jan 2026), 2027 |
+| `benchmark_silver_premium` | Covered California 2027 QHP rates (age-40 Silver, second-lowest among issuers present in the county via 2027 plans-by-ZIP) |
+| `carrier_count` | Covered California 2027 plans-by-ZIP (distinct issuers with any ZIP presence) |
+| `uninsured_rate`, income, poverty | Still ACS 2024 holds (no official county 2027 uninsured forecast) |
+
+| Scenario | What changes |
+|---|---|
+| `base` | Official 2027 population, unemployment, premium, and carrier count as above |
+| `higher_uninsured` | Uninsured rate +1 pp |
+| `softer_labor` | DOF 2027 unemployment +1 pp |
+| `premium_up` | 2027 benchmark Silver premium +$50 |
+
+**Results on the official base (32 scoreable counties; Los Angeles unscored).** 2027 Covered California Silver benchmarks run roughly **$35–$130** above the 2026 CMS bridge values used earlier, so the between-county profile scores higher. Median sticky 2027 share is about **87%** (profile alone ~86%; median departure −0.3 pp). Displayed shares are clipped to 0–100%; many high-premium Northern counties hit the cap. The median span across the four scenarios remains about **13** pp — still smaller than the model residual SE (~16.4 pp). Lower-confidence counties from notebook 6 keep that tag on the forecast table.
+
+Read the premium-driven lift carefully: the historical profile associates higher benchmark premiums with higher Kaiser share (price-position story). It is not a claim that raising every county’s premium causes higher Kaiser enrollment.
+
+**Special flags.** Los Angeles has no county premium. Monterey is scored as an **opening** (profile only, no sticky residual) and should be read against the Santa Cruz path, not as a mature-footprint forecast. Southern California should be screened with the region companion. Headline remains **share**, not enrollment headcount.
+
+Figures: `07_share_2025_vs_2027_base`.

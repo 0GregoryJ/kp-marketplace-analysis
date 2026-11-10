@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_forecast_cty_inputs
+    description: >
+      Cleaned county forecast inputs for future Marketplace scoring.
+      Grain is county × forecast_year × scenario × measure.
+      Kept separate from historical ACS/BLS/CMS staging so forecast rows never mix into mart_cty_yr_*.
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - county_fips
+            - forecast_year
+            - scenario
+            - measure
+
+    columns:
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+
+      - name: forecast_year
+        description: "Calendar / Marketplace year the forecast value applies to."
+        data_tests:
+          - not_null
+
+      - name: scenario
+        description: "Named scenario label (for example base, higher_uninsured, softer_labor, premium_up)."
+        data_tests:
+          - not_null
+
+      - name: measure
+        description: "Input measure name matching analysis covariates (for example population_total, uninsured_rate)."
+        data_tests:
+          - not_null
+
+      - name: value
+        description: "Numeric forecast value for the measure. Rates are decimals; premiums are monthly dollars."
+        data_tests:
+          - not_null
+
+      - name: source
+        description: "Provenance label for the value (official forecast product or bridge placeholder)."
+
+      - name: notes
+        description: "Optional free-text note about the assumption or replacement status."

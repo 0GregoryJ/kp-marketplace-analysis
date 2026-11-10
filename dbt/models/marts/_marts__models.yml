@@ -147,6 +147,74 @@ models:
       - name: kp_market_share_change_yoy_pp
         description: "Year-over-year change in Kaiser Permanente market share. Expressed as the difference between decimal market-share values; for example, 0.03 represents a 3 percentage-point increase."
 
+  - name: mart_cty_forecast_inputs
+    description: >
+      County forecast inputs for forward scoring, kept separate from historical mart_cty_yr_* tables.
+      Grain is county × forecast_year × scenario × measure. 2027 values use DOF P-2A population,
+      DOF/Caltrans unemployment, Covered California 2027 QHP premiums and plans-by-ZIP carrier counts,
+      and ACS 2024 holds for uninsured/income/poverty.
+
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - county_fips
+            - forecast_year
+            - scenario
+            - measure
+
+    columns:
+      - name: county_forecast_sk
+        description: "Surrogate key for the county × forecast_year × scenario × measure grain."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: forecast_year
+        description: "Year the forecast value applies to."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: state_fips
+        description: "Two-digit state FIPS code."
+        data_tests:
+          - not_null
+
+      - name: county_name
+        description: "Canonical county name."
+        data_tests:
+          - not_null
+
+      - name: county_fips
+        description: "Five-digit county FIPS code."
+        data_tests:
+          - not_null
+
+      - name: scenario
+        description: "Named forecast scenario."
+        data_tests:
+          - not_null
+
+      - name: measure
+        description: "Input measure name."
+        data_tests:
+          - not_null
+
+      - name: value
+        description: "Numeric forecast value."
+        data_tests:
+          - not_null
+
+      - name: source
+        description: "Provenance label for the value."
+
+      - name: notes
+        description: "Optional note about the assumption or replacement status."
+
   - name: mart_cty_yr_socioeconomic
     description: "1 row per California county x year containing demographic, income, insurance coverage, labor-force, and business-employment characteristics from Census ACS and BLS."
 
