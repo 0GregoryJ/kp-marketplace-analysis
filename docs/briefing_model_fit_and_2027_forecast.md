@@ -10,6 +10,28 @@ We built a **socioeconomic / market profile** of where Kaiser’s Covered Califo
 
 ---
 
+## Key takeaways
+
+1. **Kaiser share tracks a clear between-county profile.** Across offered counties, higher share goes with larger population, lower uninsured and unemployment rates, and a higher benchmark Silver premium. The premium result is best read as **price position** (other carriers’ Silver expensive relative to Kaiser), not a pure causal price lever. Four-term adj. R² ≈ 0.60.
+
+2. **Southern California sits about 19 points below Northern peers with the same conditions.** The profile has two layers: a large N/S gap, and a population / unemployment pattern that is clearer in the North. Do not sell one statewide structural law.
+
+3. **The model maps counties; it does not dial share year to year.** Only about 3% of year-adjusted share variation is within-county. Of the four terms, only the benchmark keeps its direction inside a county. SES/market conditions are a **first-pass screen** across places, not a lever you turn inside one market.
+
+4. **Some counties do not match their conditions.** Shortfalls (with region): Sutter, Orange, San Francisco, Santa Clara, Tulare. Outperformers: Napa, Solano, San Joaquin. Orange is the largest gap at 2025 market size (~30–41k members’ worth of shortfall — a scale comparison, not addable enrollment). A ZIP-limited footprint alone does not explain the shortfalls.
+
+5. **High model error is not about “poor” or “small” counties.** Absolute residual error concentrates in those same shortfall and outperformer places. Correlations of `|error|` with income, poverty, and the profile terms are near zero. Where historical fit is good, trust the screen more; where fit is bad, dig into ops / network / other non-SES factors.
+
+6. **The county ranking is sticky.** Extending recent relative paces of conditions through the model barely reshuffles high- vs low-share groups over five years (median move ~1 pp).
+
+7. **2027 is a conditions screen, not a precise share forecast.** Official DOF population and unemployment plus Covered California 2027 premiums, with each county’s historical departure carried forward. Model noise is about ±16 pp. Higher 2027 Silver benchmarks push many Northern scores to a 100% display cap — that is the linear score blowing the scale, not “Kaiser will own the market.” Use confidence tags and bands, not capped point estimates.
+
+8. **Openings need their own story.** Monterey opened at 29% against a much higher steady-state score; Santa Cruz’s path (41% → ~65%) is the better reference than the mature-footprint profile.
+
+**“Screen” means:** a first-pass filter that shortlists which counties’ conditions look like high-share places (and which need a deeper look) — not a final enrollment or share plan.
+
+---
+
 ## Research questions → answers
 
 | Question | Answer in one line |

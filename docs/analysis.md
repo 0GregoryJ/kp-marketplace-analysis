@@ -1,6 +1,16 @@
 # Analysis Notes
 
-Detail behind the README's Results section. Each notebook in `notebooks/` regenerates its own tables and figures; figures are also saved to `outputs/figures/`.
+Detail behind the README's Results section. Each notebook in `notebooks/` regenerates its own tables and figures; figures are also saved to `outputs/figures/`. A presenter brief for the full project is in [`briefing_model_fit_and_2027_forecast.md`](briefing_model_fit_and_2027_forecast.md).
+
+## Key takeaways
+
+1. **Between-county profile.** Kaiser share is higher in larger counties with lower uninsured and unemployment rates and a higher benchmark Silver premium (price position). Four-term adj. R² ≈ 0.60.
+2. **Northern / Southern gap.** Southern California counties sit about 19 points below Northern peers with the same conditions. Fit is stronger within Northern California (adj. R² ≈ 0.71).
+3. **Map, not lever.** Only about 3% of year-adjusted share variation is within-county; of the four terms, only the benchmark keeps direction inside a county. Use the profile as a first-pass **screen** across counties, not as a year-to-year dial.
+4. **Departures.** Sutter, Orange, San Francisco, Santa Clara, and Tulare sit well below their profile; Napa, Solano, and San Joaquin sit well above. Orange is the largest gap at 2025 market size. ZIP-limited footprint alone does not explain the shortfalls.
+5. **Where the tool works.** Absolute residual error is not sorted by SES level; it concentrates in the same shortfall and outperformer counties. Attach a confidence tag before acting on a score.
+6. **Ranking vs 2027 screen.** Relative 2019–2024 paces barely reshuffle the high/low ranking over five years. The 2027 notebook scores official DOF / Covered California conditions plus sticky departures (±~16 pp model band); many Northern point estimates clip at 100% and should not be read as precise forecasts.
+7. **Openings.** Monterey opened at 29% against a much higher steady-state score; Santa Cruz (41% → ~65%) is the reference path for openings.
 
 ## Common Setup
 
