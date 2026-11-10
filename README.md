@@ -231,7 +231,7 @@ Notebooks build their figures with matplotlib and save copies to `outputs/figure
 
 ## Results
 
-Details and figure references are in [`docs/analysis.md`](docs/analysis.md). A presenter-oriented write-up of notebooks 6–7 is in [`docs/briefing_model_fit_and_2027_forecast.md`](docs/briefing_model_fit_and_2027_forecast.md).
+Details and figure references are in [`docs/analysis.md`](docs/analysis.md). A presenter brief for the full project is in [`docs/briefing_model_fit_and_2027_forecast.md`](docs/briefing_model_fit_and_2027_forecast.md).
 
 - **Profile.** Across 31 offered counties, Kaiser share is higher in larger counties, where uninsured and unemployment rates are lower, and where the benchmark Silver premium is higher (four terms, adjusted R² 0.60). The benchmark result reads as Kaiser's price position, since Kaiser's gap to the benchmark moves almost one-for-one against it (correlation −0.88).
 - **Region.** Southern California counties sit about 19 points below Northern California counties with the same conditions. Within Northern California, population (+) and unemployment (−) hold (adjusted R² 0.71).
@@ -322,7 +322,7 @@ kp-marketplace-analysis/
 │
 └── docs/
     ├── analysis.md                  # model specs and full results
-    ├── briefing_model_fit_and_2027_forecast.md
+    ├── briefing_model_fit_and_2027_forecast.md  # presenter brief (full project)
     └── assets/
 ```
 
